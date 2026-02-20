@@ -1,7 +1,7 @@
 {
   "name": "iobroker.webui",
   "version": "1.37.0",
-  "description": "ioBroker mywebui - Custom edited webui by gokturk413",
+  "description": "ioBroker webui - Custom edited webui by gokturk413",
   "type": "module",
   "main": "dist/backend/main.js",
   "scripts": {
@@ -32,7 +32,7 @@
   "license": "MIT",
   "keywords": [
     "ioBroker",
-    "mywebui",
+    "webui",
     "visualization",
     "web-components",
     "gokturk413"
