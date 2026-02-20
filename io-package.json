@@ -1,6 +1,6 @@
 {
   "common": {
-    "name": "mywebui",
+    "name": "webui",
     "version": "1.37.0",
     "titleLang": {
       "en": "myWebUI",
@@ -122,7 +122,7 @@
       }
     },
     "icon": "logo.png",
-    "extIcon": "https://raw.githubusercontent.com/gokturk413/iobroker.mywebui/main/admin/logo.png",
+    "extIcon": "https://raw.githubusercontent.com/gokturk413/iobroker.webui/main/admin/logo.png",
     "connectionType": "local",
     "dataSource": "push",
     "platform": "Javascript/Node.js",
@@ -137,7 +137,7 @@
       "webcompoents",
       "HTML"
     ],
-    "readme": "https://github.com/gokturk413/iobroker.mywebui/blob/main/README.md",
+    "readme": "https://github.com/gokturk413/iobroker.webui/blob/main/README.md",
     "authors": [
       "gokturk413",
       "jogibear9988 <jochen.kuehner@gmx.de> (original author)"
@@ -176,7 +176,7 @@
       "color": "#c8ffe1",
       "order": 1
     },
-    "installedFrom": "iobroker.mywebui@1.37.0"
+    "installedFrom": "iobroker.webui@1.37.0"
   },
   "native": {},
   "instanceObjects": [
