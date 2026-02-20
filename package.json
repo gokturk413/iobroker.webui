@@ -39,6 +39,14 @@
     "url": "https://github.com/gokturk413/iobroker.webui/issues"
   },
   "homepage": "https://github.com/gokturk413/iobroker.webui#readme",
+  "files": [
+    "admin/",
+    "dist/",
+    "www/",
+    "io-package.json",
+    "LICENSE",
+    "README.md"
+  ],
   "engines": {
     "node": ">=18"
   },
