@@ -1,7 +1,7 @@
 {
-  "name": "@gokturk413/iobroker.webui",
+  "name": "iobroker.mywebui",
   "version": "1.37.0",
-  "description": "ioBroker webui",
+  "description": "ioBroker mywebui - Custom edited webui by gokturk413",
   "type": "module",
   "main": "dist/backend/main.js",
   "scripts": {
@@ -26,19 +26,21 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/gokturk413/iobroker.webui.git"
+    "url": "git+https://github.com/gokturk413/iobroker.mywebui.git"
   },
   "author": "gokturk413",
   "license": "MIT",
   "keywords": [
     "ioBroker",
+    "mywebui",
     "visualization",
-    "web-components"
+    "web-components",
+    "gokturk413"
   ],
   "bugs": {
-    "url": "https://github.com/gokturk413/iobroker.webui/issues"
+    "url": "https://github.com/gokturk413/iobroker.mywebui/issues"
   },
-  "homepage": "https://github.com/gokturk413/iobroker.webui#readme",
+  "homepage": "https://github.com/gokturk413/iobroker.mywebui#readme",
   "files": [
     "admin/",
     "dist/",
