@@ -1,0 +1,9 @@
+export var ValueType;
+(function (ValueType) {
+    ValueType["none"] = "none";
+    ValueType["all"] = "all";
+    ValueType["some"] = "some";
+    ValueType["bound"] = "bound";
+    ValueType["fromStylesheet"] = "fromStylesheet";
+})(ValueType || (ValueType = {}));
+//# sourceMappingURL=ValueType.js.map

@@ -1,0 +1,10 @@
+export var Orientation;
+(function (Orientation) {
+    Orientation[Orientation["TOP"] = 0] = "TOP";
+    Orientation[Orientation["RIGHT"] = 1] = "RIGHT";
+    Orientation[Orientation["BOTTOM"] = 2] = "BOTTOM";
+    Orientation[Orientation["LEFT"] = 3] = "LEFT";
+    Orientation[Orientation["VERTICAL_CENTER"] = 4] = "VERTICAL_CENTER";
+    Orientation[Orientation["HORIZONTAL_CENTER"] = 5] = "HORIZONTAL_CENTER";
+})(Orientation || (Orientation = {}));
+//# sourceMappingURL=Orientation.js.map

@@ -1,0 +1,88 @@
+<!doctype html>
+<html lang="en" style="height: 100%;">
+
+<head>
+  <meta charset="utf-8">
+  <link rel="manifest" href="./manifest.json">
+  <script src="./node_modules/blockly/blockly_compressed.js"></script>
+  <script src="./node_modules/blockly/blocks_compressed.js"></script>
+  <script src="./node_modules/blockly/javascript_compressed.js"></script>
+  <script src="./node_modules/dayjs/dayjs.min.js"></script>
+
+  <link rel="stylesheet" href="./assets/main.css">
+
+  <title>runtime</title>
+
+  <script src="./node_modules/construct-style-sheets-polyfill/dist/adoptedStyleSheets.js"></script>
+
+  <script>
+    let storedParentUrl;
+    window.esmsInitOptions = {
+      shimMode: true,
+      mapOverrides: true,
+      resolve: (id, parentUrl, resolve) => {
+        if (!storedParentUrl)
+          storedParentUrl = parentUrl;
+        if (parentUrl.startsWith('blob:'))
+          parentUrl = storedParentUrl;
+        return resolve(id, parentUrl)
+      }
+    }
+  </script>
+  <script src="./node_modules/es-module-shims/dist/es-module-shims.js"></script>
+  <script src="/webui.0.widgets/importmap.js"></script>
+  <script src="./dist/importmaps/importmap-runtime.js"></script>
+
+  <script src="config.js"></script>
+</head>
+
+<style>
+  body {
+    height: 100%;
+    margin: 0;
+    font-family: 'Roboto', 'Noto', sans-serif;
+    line-height: 1.5;
+    background-color: white;
+    -webkit-font-smoothing: antialiased;
+  }
+</style>
+
+<body>
+  <iobroker-webui-screen-viewer id="viewer"></iobroker-webui-screen-viewer>
+  <div id="overlayLayer"></div>
+</body>
+
+<script type="module">
+  const scp = document.createElement('script');
+  scp.src = iobrokerWebRootUrl + "webui.0.widgets/importmap.js";
+  document.head.appendChild(scp);
+
+  await importShim('./dist/frontend/runtime/init.js');
+  importShim('./dist/frontend/runtime/controls.js');
+  importShim(iobrokerWebRootUrl + 'webui.0.widgets/importWidgetFilesRuntime.js');
+
+  async function checkHash() {
+    const viewer = document.getElementById('viewer');
+    const par = new URLSearchParams(location.hash.substring(1));
+    let screen = (par).get('screenName');
+    if (screen) {
+      await customElements.whenDefined(viewer.localName);
+    } else {
+      screen = 'start';
+    }
+    await viewer.setScreenNameAndLoad(screen);
+    let subScreen = (par).get('subScreen');
+    if (subScreen) {
+      const targetSelector =  (par).get('targetSelector') ?? 'iobroker-webui-screen-viewer';
+      const sv = viewer._getDomElements(targetSelector)[0];
+      sv.removeAttribute('screen-name');
+      sv.screenName = subScreen;
+    }
+    let imp = await importShim(iobrokerWebuiRootUrl + "dist/frontend/common/IobrokerHandler.js");
+    imp.iobrokerHandler.sendCommand("uiChangedView", screen);
+  }
+  checkHash();
+  window.onhashchange = checkHash;
+</script>
+
+</html>

@@ -1,0 +1,92 @@
+import { BaseCustomWebComponentConstructorAppend, css, html } from "@node-projects/base-custom-webcomponent";
+import { CommandType } from "../../../../../commandHandling/CommandType.js";
+import { DesignerToolbarButton } from './DesignerToolbarButton.js';
+export class DesignerToolbar extends BaseCustomWebComponentConstructorAppend {
+    static style = css `
+        node-projects-designer-tools-buttons {
+            height: 100%;
+            width: 100%;
+        }        
+
+        #toolButtons {
+          scrollbar-width: none; /* for Firefox */
+          overflow-y: auto;
+          height: 100%;
+        }
+        #toolButtons::-webkit-scrollbar {
+          display: none; /* for Chrome, Safari, and Opera */
+        }
+
+        #popup {
+            position: absolute;
+            top: calc(0px + 10px);
+            height: 100%;
+            left: calc(24px + 4px + 10px);
+        }`;
+    static template = html `
+        <div id="popup"></div>
+        <div id="toolButtons"></div>`;
+    _toolButtonsElem;
+    _serviceContainer;
+    _popupContainer;
+    designerView;
+    constructor() {
+        super();
+        this._toolButtonsElem = this._getDomElement("toolButtons");
+        this._toolButtonsElem.onwheel = (e) => e.stopPropagation();
+        this._popupContainer = this._getDomElement("popup");
+    }
+    initialize(serviceContainer, designerView) {
+        this._serviceContainer = serviceContainer;
+        this.designerView = designerView;
+        for (let tb of this._serviceContainer.designViewToolbarButtons) {
+            this._toolButtonsElem.appendChild(tb.provideButton(designerView.designerCanvas));
+        }
+        this._serviceContainer.globalContext.onToolChanged.on((e) => {
+            for (const el of this._toolButtonsElem.children) {
+                if (el instanceof DesignerToolbarButton) {
+                    el.setActiveTool(e.newValue.name);
+                }
+            }
+        });
+    }
+    showPopup(designerToolbarButton) {
+        if (this._popupContainer.children.length) {
+            this._popupContainer.innerHTML = '';
+        }
+        else {
+            let instance;
+            if (typeof designerToolbarButton.popup === 'string')
+                instance = document.createElement(designerToolbarButton.popup);
+            else
+                instance = new designerToolbarButton.popup();
+            this._popupContainer.appendChild(instance);
+        }
+    }
+    setTool(tool) {
+        if (this._popupContainer.children.length) {
+            this._popupContainer.innerHTML = '';
+        }
+        this.designerView.designerCanvas.executeCommand({ type: CommandType.setTool, parameter: tool });
+    }
+    setStrokeColor(color) {
+        if (this._popupContainer.children.length) {
+            this._popupContainer.innerHTML = '';
+        }
+        this.designerView.designerCanvas.executeCommand({ type: CommandType.setStrokeColor, parameter: color });
+    }
+    setFillBrush(color) {
+        if (this._popupContainer.children.length) {
+            this._popupContainer.innerHTML = '';
+        }
+        this.designerView.designerCanvas.executeCommand({ type: CommandType.setFillBrush, parameter: color });
+    }
+    setStrokeThickness(input) {
+        if (this._popupContainer.children.length) {
+            this._popupContainer.innerHTML = '';
+        }
+        this.designerView.designerCanvas.executeCommand({ type: CommandType.setStrokeThickness, parameter: input });
+    }
+}
+customElements.define('node-projects-designer-toolbar', DesignerToolbar);
+//# sourceMappingURL=DesignerToolbar.js.map

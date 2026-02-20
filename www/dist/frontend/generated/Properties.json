@@ -1,0 +1,379 @@
+{
+    "$schema": "http://json-schema.org/draft-07/schema#",
+    "definitions": {
+        "BindingTarget": {
+            "enum": [
+                "explicitProperty",
+                "property",
+                "attribute",
+                "class",
+                "css",
+                "cssvar",
+                "event",
+                "content",
+                "visible"
+            ],
+            "type": "string"
+        },
+        "Function": {
+            "properties": {
+                "arguments": {},
+                "caller": {
+                    "$ref": "#/definitions/Function"
+                },
+                "length": {
+                    "type": "number"
+                },
+                "name": {
+                    "type": "string"
+                },
+                "prototype": {}
+            },
+            "propertyOrder": [
+                "apply",
+                "call",
+                "bind",
+                "toString",
+                "prototype",
+                "length",
+                "arguments",
+                "caller",
+                "name",
+                "__@hasInstance@2404"
+            ],
+            "type": "object"
+        },
+        "IControl": {
+            "properties": {
+                "html": {
+                    "type": "string"
+                },
+                "properties": {
+                    "$ref": "#/definitions/Record<string,{type:string;values?:string[]|undefined;default?:any;internal?:boolean|undefined;}>"
+                },
+                "script": {
+                    "type": "string"
+                },
+                "settings": {
+                    "$ref": "#/definitions/IControlSettings"
+                },
+                "style": {
+                    "type": "string"
+                }
+            },
+            "propertyOrder": [
+                "html",
+                "style",
+                "script",
+                "properties",
+                "settings"
+            ],
+            "type": "object"
+        },
+        "IControlSettings": {
+            "properties": {
+                "adoptedStyles": {
+                    "items": {
+                        "type": "string"
+                    },
+                    "type": "array"
+                },
+                "bindToSize": {
+                    "description": "In bindings the properties §width and §height could be used",
+                    "type": "boolean"
+                },
+                "height": {
+                    "type": "string"
+                },
+                "useGlobalStyle": {
+                    "description": "CustomControl does include Global Style in it's shadowroot",
+                    "type": "boolean"
+                },
+                "width": {
+                    "type": "string"
+                },
+                "visibilityEnabled": {
+                    "type": "boolean",
+                    "description": "Enable control visibility based on user groups",
+                    "default": false,
+                    "$$hideInPropertyGrid": true
+                },
+                "visibilityGroups": {
+                    "type": "array",
+                    "items": {
+                        "type": "string"
+                    },
+                    "description": "List of user group IDs that can access this control",
+                    "default": [],
+                    "$$hideInPropertyGrid": true
+                },
+                "visibilityAction": {
+                    "type": "string",
+                    "enum": [
+                        "hide",
+                        "redirect"
+                    ],
+                    "description": "Action to take if user is not in allowed groups",
+                    "default": "hide",
+                    "$$hideInPropertyGrid": true
+                },
+                "visibilityRedirectScreen": {
+                    "type": "string",
+                    "description": "Screen to redirect to if action is 'redirect'",
+                    "default": "",
+                    "$$hideInPropertyGrid": true
+                }
+            },
+            "propertyOrder": [
+                "width",
+                "height",
+                "useGlobalStyle",
+                "adoptedStyles",
+                "bindToSize"
+            ],
+            "type": "object"
+        },
+        "ICustomControlScript": {
+            "propertyOrder": [
+                "init",
+                "connectedCallback",
+                "disconnectedCallback"
+            ],
+            "type": "object"
+        },
+        "IGlobalConfig": {
+            "properties": {
+                "headerTags": {
+                    "description": "html tags added to the head",
+                    "format": "html",
+                    "type": "string"
+                }
+            },
+            "propertyOrder": [
+                "headerTags"
+            ],
+            "type": "object"
+        },
+        "IGlobalScript": {
+            "propertyOrder": [
+                "init"
+            ],
+            "type": "object"
+        },
+        "IIobrokerWebuiBinding": {
+            "properties": {
+                "compiledExpression": {
+                    "$ref": "#/definitions/Function"
+                },
+                "compiledExpressionTwoWay": {
+                    "$ref": "#/definitions/Function"
+                },
+                "converter": {
+                    "$ref": "#/definitions/Record<string,any>"
+                },
+                "events": {
+                    "items": {
+                        "type": "string"
+                    },
+                    "type": "array"
+                },
+                "expression": {
+                    "type": "string"
+                },
+                "expressionTwoWay": {
+                    "type": "string"
+                },
+                "historic": {},
+                "interval": {
+                    "type": "number"
+                },
+                "inverted": {
+                    "type": "boolean"
+                },
+                "signal": {
+                    "type": "string"
+                },
+                "target": {
+                    "$ref": "#/definitions/BindingTarget"
+                },
+                "twoWay": {
+                    "type": "boolean"
+                },
+                "type": {
+                    "type": "string"
+                }
+            },
+            "propertyOrder": [
+                "interval",
+                "signal",
+                "inverted",
+                "twoWay",
+                "events",
+                "target",
+                "converter",
+                "expression",
+                "expressionTwoWay",
+                "compiledExpression",
+                "compiledExpressionTwoWay",
+                "type",
+                "historic"
+            ],
+            "type": "object"
+        },
+        "IScreen": {
+            "properties": {
+                "html": {
+                    "type": "string"
+                },
+                "properties": {
+                    "$ref": "#/definitions/Record<string,{type:string;values?:string[]|undefined;default?:any;internal?:boolean|undefined;}>_1"
+                },
+                "script": {
+                    "type": "string"
+                },
+                "settings": {
+                    "$ref": "#/definitions/IScreenSettings"
+                },
+                "style": {
+                    "type": "string"
+                }
+            },
+            "propertyOrder": [
+                "html",
+                "style",
+                "script",
+                "properties",
+                "settings"
+            ],
+            "type": "object"
+        },
+        "IScreenSettings": {
+            "properties": {
+                "adoptedStyles": {
+                    "items": {
+                        "type": "string"
+                    },
+                    "type": "array"
+                },
+                "height": {
+                    "type": "string"
+                },
+                "stretch": {
+                    "enum": [
+                        "fill",
+                        "none",
+                        "uniform",
+                        "uniformToFill"
+                    ],
+                    "type": "string"
+                },
+                "width": {
+                    "type": "string"
+                },
+                "visibilityEnabled": {
+                    "type": "boolean",
+                    "description": "Enable screen visibility control based on user groups",
+                    "default": false,
+                    "$$hideInPropertyGrid": true
+                },
+                "visibilityGroups": {
+                    "type": "array",
+                    "items": {
+                        "type": "string"
+                    },
+                    "description": "List of user group IDs that can access this screen",
+                    "default": [],
+                    "$$hideInPropertyGrid": true
+                },
+                "visibilityAction": {
+                    "type": "string",
+                    "enum": [
+                        "hide",
+                        "redirect"
+                    ],
+                    "description": "Action to take if user is not in allowed groups",
+                    "default": "hide",
+                    "$$hideInPropertyGrid": true
+                },
+                "visibilityRedirectScreen": {
+                    "type": "string",
+                    "description": "Screen to redirect to if action is 'redirect'",
+                    "default": "",
+                    "$$hideInPropertyGrid": true
+                }
+            },
+            "propertyOrder": [
+                "width",
+                "height",
+                "adoptedStyles",
+                "stretch"
+            ],
+            "type": "object"
+        },
+        "IScriptMultiplexValue": {
+            "properties": {
+                "name": {
+                    "description": "Name of the signal, the property of the component or the parameter of the script\nor for example in a event : srcElement.value to get the value of a input wich raises the event",
+                    "format": "signal",
+                    "type": "string"
+                },
+                "source": {
+                    "description": "signal - read the value from a Signal\nproperty - read the value from a property of the customControl (not usable in screens)\nsignalInProperty - read the value from a Signal (wich name is in the Property)\nevent - read the value of a property of the event object\nparameter - a parameter you hand over\ncontext - a value of the context\ncomplexString - a string with signals (contained in {})\ncomplexSignal - read the value from a signal wich name is build here (it can contain other signals in {})\nexpression - js expression, 'ctx' is context object\nelementProperty - a property defined on the element raising the event",
+                    "enum": [
+                        "complexSignal",
+                        "complexString",
+                        "context",
+                        "elementProperty",
+                        "event",
+                        "expression",
+                        "parameter",
+                        "property",
+                        "signal",
+                        "signalInProperty"
+                    ],
+                    "type": "string"
+                }
+            },
+            "propertyOrder": [
+                "source",
+                "name"
+            ],
+            "type": "object"
+        },
+        "IWebUiConfig": {
+            "properties": {
+                "fontDeclarations": {
+                    "type": "string"
+                },
+                "globalConfig": {
+                    "$ref": "#/definitions/IGlobalConfig"
+                },
+                "globalScript": {
+                    "type": "string"
+                },
+                "globalStyle": {
+                    "type": "string"
+                }
+            },
+            "propertyOrder": [
+                "globalStyle",
+                "globalScript",
+                "globalConfig",
+                "fontDeclarations"
+            ],
+            "type": "object"
+        },
+        "Record<string,any>": {
+            "propertyOrder": [],
+            "type": "object"
+        },
+        "Record<string,{type:string;values?:string[]|undefined;default?:any;internal?:boolean|undefined;}>": {
+            "propertyOrder": [],
+            "type": "object"
+        },
+        "Record<string,{type:string;values?:string[]|undefined;default?:any;internal?:boolean|undefined;}>_1": {
+            "propertyOrder": [],
+            "type": "object"
+        }
+    }
+}

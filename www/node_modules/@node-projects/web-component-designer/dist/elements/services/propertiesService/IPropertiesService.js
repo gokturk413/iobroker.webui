@@ -1,0 +1,8 @@
+export var RefreshMode;
+(function (RefreshMode) {
+    RefreshMode[RefreshMode["none"] = 0] = "none";
+    RefreshMode[RefreshMode["full"] = 1] = "full";
+    RefreshMode[RefreshMode["fullOnValueChange"] = 2] = "fullOnValueChange";
+    RefreshMode[RefreshMode["fullOnClassChange"] = 3] = "fullOnClassChange";
+})(RefreshMode || (RefreshMode = {}));
+//# sourceMappingURL=IPropertiesService.js.map

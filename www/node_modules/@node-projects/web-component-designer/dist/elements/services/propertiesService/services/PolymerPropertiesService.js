@@ -1,0 +1,11 @@
+import { AbstractPolymerLikePropertiesService } from './AbstractPolymerLikePropertiesService.js';
+export class PolymerPropertiesService extends AbstractPolymerLikePropertiesService {
+    name = "polymer";
+    isHandledElement(designItem) {
+        return designItem.element.constructor.polymerElementVersion != null;
+    }
+    _notifyChangedProperty(designItem, property, value) {
+        designItem.element.set(property.name, value);
+    }
+}
+//# sourceMappingURL=PolymerPropertiesService.js.map

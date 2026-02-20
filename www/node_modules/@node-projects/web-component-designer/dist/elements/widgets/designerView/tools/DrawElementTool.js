@@ -1,0 +1,89 @@
+import { EventNames } from '../../../../enums/EventNames.js';
+import { roundValue } from '../../../helper/LayoutHelper.js';
+import { OverlayLayer } from '../extensions/OverlayLayer.js';
+export class DrawElementTool {
+    _elementDefinition;
+    _createdItem;
+    _startPosition;
+    _changeGroup;
+    cursor = 'crosshair';
+    _rect;
+    constructor(elementDefinition) {
+        this._elementDefinition = elementDefinition;
+    }
+    activated(serviceContainer) {
+    }
+    dispose() {
+        if (this._createdItem)
+            this._createdItem.element.parentElement.removeChild(this._createdItem.element);
+    }
+    pointerEventHandler(designerView, event, currentElement) {
+        switch (event.type) {
+            case EventNames.PointerDown:
+                this._onPointerDown(designerView, event);
+                break;
+            case EventNames.PointerMove:
+                this._onPointerMove(designerView, event);
+                break;
+            case EventNames.PointerUp:
+                this._onPointerUp(designerView, event);
+                break;
+        }
+    }
+    keyboardEventHandler(designerCanvas, event, currentElement) { }
+    sizeOverlapThreshold = false;
+    async _onPointerDown(designerCanvas, event) {
+        const evPos = designerCanvas.getNormalizedEventCoordinates(event);
+        event.preventDefault();
+        this._startPosition = { x: evPos.x, y: evPos.y };
+        this._changeGroup = designerCanvas.rootDesignItem.openGroup("Insert Item");
+        this._createdItem = await designerCanvas.serviceContainer.forSomeServicesTillResult("instanceService", (service) => service.getElement(this._elementDefinition, designerCanvas.serviceContainer, designerCanvas.instanceServiceContainer));
+        this._createdItem.setStyle('position', 'absolute');
+        this._createdItem.setStyle('left', roundValue(this._createdItem, evPos.x) + 'px');
+        this._createdItem.setStyle('top', roundValue(this._createdItem, evPos.y) + 'px');
+        this._createdItem.setStyle('width', '0');
+        this._createdItem.setStyle('height', '0');
+        designerCanvas.rootDesignItem.insertChild(this._createdItem);
+        //draw via containerService??? how to draw into a grid, a stackpanel???
+        designerCanvas.instanceServiceContainer.selectionService.clearSelectedElements();
+    }
+    async _onPointerMove(designerCanvas, event) {
+        const evPos = designerCanvas.getNormalizedEventCoordinates(event);
+        if (this._createdItem) {
+            if (!this._rect) {
+                this._rect = document.createElementNS("http://www.w3.org/2000/svg", "rect");
+                designerCanvas.overlayLayer.addOverlay(this.constructor.name, this._rect, OverlayLayer.Foreground);
+                this._rect.setAttribute('class', 'svg-draw-new-element');
+                this._rect.setAttribute('x', roundValue(this._createdItem, this._startPosition.x));
+                this._rect.setAttribute('y', roundValue(this._createdItem, this._startPosition.y));
+            }
+            const w = roundValue(this._createdItem, evPos.x - this._startPosition.x);
+            const h = roundValue(this._createdItem, evPos.y - this._startPosition.y);
+            if (parseFloat('' + w) >= 0) {
+                this._rect.setAttribute('width', w);
+                this._createdItem.setStyle('width', w + 'px');
+            }
+            if (parseFloat('' + h) >= 0) {
+                this._rect.setAttribute('height', h);
+                this._createdItem.setStyle('height', h + 'px');
+            }
+            if (parseFloat('' + w) > 5 || parseFloat('' + h) > 5)
+                this.sizeOverlapThreshold = true;
+        }
+    }
+    async _onPointerUp(designerView, event) {
+        if (this.sizeOverlapThreshold) {
+            this._changeGroup.commit();
+            designerView.instanceServiceContainer.selectionService.setSelectedElements([this._createdItem], event);
+        }
+        else {
+            this._changeGroup.abort();
+        }
+        designerView.overlayLayer.removeOverlay(this._rect);
+        this._startPosition = null;
+        this._rect = null;
+        this._createdItem = null;
+        designerView.serviceContainer.globalContext.finishedWithTool(this);
+    }
+}
+//# sourceMappingURL=DrawElementTool.js.map

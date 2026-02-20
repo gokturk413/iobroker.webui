@@ -1,0 +1,10 @@
+import { BaseCustomWebComponentConstructorAppend, css, html } from '@node-projects/base-custom-webcomponent';
+export class EditTextOverlay extends BaseCustomWebComponentConstructorAppend {
+    static style = css ``;
+    static template = html `
+    <div>
+      <input type="text">
+    </div>
+  `;
+}
+//# sourceMappingURL=EditTextOverlay.js.map

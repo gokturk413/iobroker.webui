@@ -1,0 +1,14 @@
+import { HighlightElementExtension } from './HighlightElementExtension.js';
+import { css } from "@node-projects/base-custom-webcomponent";
+export class HighlightElementExtensionProvider {
+    shouldExtend(extensionManager, designerView, designItem) {
+        return !(designItem.element instanceof HTMLTemplateElement);
+    }
+    getExtension(extensionManager, designerView, designItem) {
+        return new HighlightElementExtension(extensionManager, designerView, designItem);
+    }
+    static style = css `
+    .svg-hover { stroke: #90caf966; fill: none; }
+  `;
+}
+//# sourceMappingURL=HighlightElementExtensionProvider.js.map

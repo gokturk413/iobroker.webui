@@ -1,0 +1,12 @@
+export class SeperatorToolProvider {
+    constructor(distance) {
+        this.distance = distance;
+    }
+    distance;
+    provideButton(designerCanvas) {
+        const div = document.createElement('div');
+        div.style.marginTop = this.distance + 'px';
+        return div;
+    }
+}
+//# sourceMappingURL=SeperatorToolProvider.js.map

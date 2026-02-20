@@ -1,0 +1,23 @@
+import { AbstractPropertiesService } from './AbstractPropertiesService.js';
+import { RefreshMode } from '../IPropertiesService.js';
+export class AttachedPropertiesService extends AbstractPropertiesService {
+    name = "attached";
+    getRefreshMode(designItem) {
+        return RefreshMode.full;
+    }
+    isHandledElement(designItem) {
+        return designItem.serviceContainer.forSomeServicesTillResult('attachedPropertyService', x => x.isHandledElement(designItem));
+    }
+    async getProperties(designItem) {
+        let p = [];
+        if (designItem.serviceContainer.attachedPropertyServices) {
+            for (let s of designItem.serviceContainer.attachedPropertyServices) {
+                if (s.isHandledElement(designItem)) {
+                    p.push(...await s.getProperties(designItem));
+                }
+            }
+        }
+        return p;
+    }
+}
+//# sourceMappingURL=AttachedPropertiesService.js.map

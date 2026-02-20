@@ -1,0 +1,19 @@
+import { PositionExtension } from './PositionExtension.js';
+import { css } from "@node-projects/base-custom-webcomponent";
+export class PositionExtensionProvider {
+    shouldExtend(extensionManager, designerView, designItem) {
+        if (!designItem?.parent || designItem.element instanceof HTMLTemplateElement)
+            return false;
+        const cs = getComputedStyle(designItem.element);
+        if (cs.position === 'relative' || cs.position === 'absolute')
+            return true;
+        return false;
+    }
+    getExtension(extensionManager, designerView, designItem) {
+        return new PositionExtension(extensionManager, designerView, designItem);
+    }
+    static style = css `
+    .svg-position-text { text-anchor: middle; alignment-baseline: central; }
+  `;
+}
+//# sourceMappingURL=PositionExtensionProvider.js.map

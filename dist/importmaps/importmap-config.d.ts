@@ -1,0 +1,35 @@
+declare const importMapConfig: {
+    imports: {
+        "@node-projects/base-custom-webcomponent": string;
+        "@node-projects/web-component-designer": string;
+        "@node-projects/web-component-designer-widgets-wunderbaum": string;
+        "@node-projects/lean-he-esm": string;
+        "@node-projects/node-html-parser-esm": string;
+        "dock-spawn-ts": string;
+        "a_@node-projects/base-custom-webcomponent": string;
+        "a_@node-projects/web-component-designer": string;
+        "a_@node-projects/web-component-designer-widgets-wunderbaum": string;
+        "a_@node-projects/lean-he-esm": string;
+        "a_@node-projects/node-html-parser-esm": string;
+        "a_dock-spawn-ts": string;
+        "monaco-editor/": string;
+        "@node-projects/web-component-designer/": string;
+        "@adobe/css-tools": string;
+        "esprima-next": string;
+        "@node-projects/": string;
+        "@node-projects/web-component-designer-htmlparserservice-nodehtmlparser": string;
+        "@node-projects/web-component-designer-codeview-monaco": string;
+        "@node-projects/web-component-designer-stylesheetservice-css-tools": string;
+        "@node-projects/web-component-designer-visualization-addons": string;
+        "@node-projects/propertygrid.webcomponent": string;
+        "@node-projects/splitview.webcomponent": string;
+        "@iobroker/socket-client/": string;
+        "@iobroker/socket-client": string;
+        tslib: string;
+        long: string;
+        wunderbaum: string;
+        "wunderbaum/": string;
+        "toastify-js": string;
+        "@iobroker/webcomponent-selectid-dialog/": string;
+    };
+};

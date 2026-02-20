@@ -1,0 +1,13 @@
+export class ButtonSeperatorProvider {
+    _space;
+    constructor(space) {
+        this._space = space;
+    }
+    provideButtons(designerView, designerCanvas) {
+        const div = document.createElement('div');
+        div.style.width = this._space + 'px';
+        div.oncontextmenu = (e) => { e.preventDefault(); };
+        return [div];
+    }
+}
+//# sourceMappingURL=ButtonSeperatorProvider.js.map

@@ -1,0 +1,10 @@
+export var PropertyType;
+(function (PropertyType) {
+    PropertyType["property"] = "property";
+    PropertyType["attribute"] = "attribute";
+    PropertyType["propertyAndAttribute"] = "propertyAndAttribute";
+    PropertyType["cssValue"] = "cssvalue";
+    PropertyType["complex"] = "complex";
+    PropertyType["add"] = "add"; // editor allows to add a new one
+})(PropertyType || (PropertyType = {}));
+//# sourceMappingURL=PropertyType.js.map

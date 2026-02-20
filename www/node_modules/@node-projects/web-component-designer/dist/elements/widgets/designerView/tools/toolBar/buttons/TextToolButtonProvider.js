@@ -1,0 +1,8 @@
+import { DesignerToolbarButton } from '../DesignerToolbarButton.js';
+import { assetsPath } from "../../../../../../Constants.js";
+export class TextToolButtonProvider {
+    provideButton(designerCanvas) {
+        return new DesignerToolbarButton(designerCanvas, { 'Text': { icon: assetsPath + 'images/tools/TextTool.svg' } });
+    }
+}
+//# sourceMappingURL=TextToolButtonProvider.js.map

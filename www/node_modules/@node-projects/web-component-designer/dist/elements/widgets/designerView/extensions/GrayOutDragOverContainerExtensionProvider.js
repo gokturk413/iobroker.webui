@@ -1,0 +1,14 @@
+import { css } from "@node-projects/base-custom-webcomponent";
+import { GrayOutDragOverContainerExtension } from "./GrayOutDragOverContainerExtension.js";
+export class GrayOutDragOverContainerExtensionProvider {
+    shouldExtend(extensionManager, designerCanvas, designItem) {
+        return true;
+    }
+    getExtension(extensionManager, designerView, designItem) {
+        return new GrayOutDragOverContainerExtension(extensionManager, designerView, designItem);
+    }
+    static style = css `
+    .svg-rect-enter-container { stroke: none; fill: #aa00ff2e; }
+  `;
+}
+//# sourceMappingURL=GrayOutDragOverContainerExtensionProvider.js.map

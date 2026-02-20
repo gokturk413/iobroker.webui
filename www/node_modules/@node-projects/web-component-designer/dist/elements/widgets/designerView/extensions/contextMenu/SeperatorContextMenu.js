@@ -1,0 +1,11 @@
+export class SeperatorContextMenu {
+    shouldProvideContextmenu(event, designerView, designItem, initiator) {
+        return true;
+    }
+    provideContextMenuItems(event, designerView, designItem) {
+        return [
+            { title: '-' }
+        ];
+    }
+}
+//# sourceMappingURL=SeperatorContextMenu.js.map

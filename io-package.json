@@ -1,0 +1,286 @@
+{
+  "common": {
+    "name": "webui",
+    "version": "1.37.0",
+    "titleLang": {
+      "en": "webui",
+      "de": "webui",
+      "ru": "webui",
+      "pt": "webui",
+      "nl": "webui",
+      "fr": "webui",
+      "it": "webui",
+      "es": "webui",
+      "pl": "webui",
+      "uk": "webui",
+      "zh-cn": "webui"
+    },
+    "desc": {
+      "en": "Graphical user interface for iobroker using Webcomponents",
+      "de": "Grafische Benutzeroberfläche für iobroker mit Webkomponenten",
+      "ru": "Графический пользовательский интерфейс для iobroker с использованием Webcomponents",
+      "pt": "Interface gráfica do usuário para iobroker usando Webcomponents",
+      "nl": "Grafische gebruiker interface voor iobroker met webcomponenten",
+      "fr": "Interface utilisateur graphique pour iobroker en utilisant Webcomponents",
+      "it": "Interfaccia utente grafica per iobroker utilizzando Webcomponents",
+      "es": "Interfaz de usuario gráfica para iobroker utilizando Webcomponents",
+      "pl": "Graphical user interface for iobroker (ang.)",
+      "uk": "Графічний інтерфейс користувача для iobroker за допомогою Webcomponents",
+      "zh-cn": "使用万维网传送器的高锰用户接口"
+    },
+    "news": {
+      "1.37.0": {
+        "en": "fix bug in bundled code\nuse minified code for config",
+        "de": "fehler in gebündeltem code beheben\nminified code für config",
+        "ru": "исправить ошибку in bundled code\nминифицированный код для конфигурирования",
+        "pt": "corrigir o erro no código empacotado\nusar código minimizado para configuração",
+        "nl": "fix bug in gebundelde code\nvermineerde code voor config gebruiken",
+        "fr": "correction du bogue dans le code groupé\nutiliser le code minifié pour la configuration",
+        "it": "fix bug in codice bundle\nutilizzare il codice miniificato per la configurazione",
+        "es": "solucionar error en código incluido\nuse minified code for config",
+        "pl": "fix błąd w kodzie pakietowym\nużyj minionego kodu dla konfiguracji",
+        "uk": "виправлення помилок в коді\nвикористовуйте норифікований код для налаштування",
+        "zh-cn": "在捆绑的代码中修复错误\n配置使用已修改的代码"
+      },
+      "1.36.0": {
+        "en": "fix some boxQuads edge cases",
+        "de": "befestigen Sie einige BoxQuads Randgehäuse",
+        "ru": "исправьте некоторые случаи BoxQuads edge",
+        "pt": "corrigir algumas caixasQuads edge cases",
+        "nl": "fix sommige doosQuads rand gevallen",
+        "fr": "fixer quelques cas de bord de boxQuads",
+        "it": "risolvere alcuni casi di bordo boxQuads",
+        "es": "arreglar algunas cajas de borde Cuads",
+        "pl": "naprawić kilka skrzynek boxQuads krawędzi",
+        "uk": "закріпити якусь коробкуШвидких крайових випадків",
+        "zh-cn": "修补一些框 Quads 边框"
+      },
+      "1.35.4": {
+        "en": "clear cache on reload",
+        "de": "löschen cache auf nachladen",
+        "ru": "чистый кэш на перезагрузке",
+        "pt": "limpar cache ao recarregar",
+        "nl": "cache wissen bij herladen",
+        "fr": "effacer le cache lors du rechargement",
+        "it": "cache chiara su ricarica",
+        "es": "caché transparente en la recarga",
+        "pl": "klarowna pamięć podręczna przy ponownym załadowaniu",
+        "uk": "прозорий кеш на перевантаження",
+        "zh-cn": "重新装入时清除缓存"
+      },
+      "1.35.3": {
+        "en": "object changed to all clients",
+        "de": "objekt geändert für alle kunden",
+        "ru": "измененный объект для всех клиентов",
+        "pt": "objeto alterado para todos os clientes",
+        "nl": "object veranderd naar alle clients",
+        "fr": "objet changé à tous les clients",
+        "it": "oggetto cambiato in tutti i client",
+        "es": "objeto cambiado a todos los clientes",
+        "pl": "obiekt zmieniony na wszystkich klientów",
+        "uk": "об’єкт змінився для всіх клієнтів",
+        "zh-cn": "对象更改为全部客户端"
+      },
+      "1.35.2": {
+        "en": "forgett to parse bindings",
+        "de": "vergess auf parse bindungen",
+        "ru": "забыли разобрать привязки",
+        "pt": "esquecido de analisar as ligações",
+        "nl": "vergeten om bindingen te ontleden",
+        "fr": "oublier d'analyser les liaisons",
+        "it": "dimenticare di parse bindings",
+        "es": "olvidarse de parse bindings",
+        "pl": "zapominanie o przypisie",
+        "uk": "забути в обв'язках",
+        "zh-cn": "忘记解析绑定"
+      },
+      "1.35.1": {
+        "en": "fix reload custom controls",
+        "de": "reload benutzerdefinierte bedienelemente",
+        "ru": "исправить пользовательские элементы управления",
+        "pt": "corrigir recarga de controles personalizados",
+        "nl": "repareren herladen aangepaste controles",
+        "fr": "fixer les contrôles personnalisés de recharge",
+        "it": "correzione dei controlli personalizzati di ricarica",
+        "es": "recargar controles personalizados",
+        "pl": "naprawiać sterowanie niestandardowe",
+        "uk": "виправити перевантаження користувальницьких контрольів",
+        "zh-cn": "固定重装自定义控制"
+      },
+      "1.35.0": {
+        "en": "better nameing\nchanged object notification",
+        "de": "besser benennen\nänderung der objektbenachrichtigung",
+        "ru": "лучшее название\nизменено уведомление об объекте",
+        "pt": "melhor nome\nnotificação de objeto alterada",
+        "nl": "betere naamgeving\nobjectnotificatie gewijzigd",
+        "fr": "mieux nommer\nnotification d'objet modifiée",
+        "it": "nome migliore\nnotifica dell'oggetto modificato",
+        "es": "mejor nombre\nnotificación de objeto cambiado",
+        "pl": "lepsze nazwanie\nzmienione powiadomienie obiektu",
+        "uk": "краще ім'я\nзмінено повідомлення про об’єкт",
+        "zh-cn": "更好的名称\n更改对象通知"
+      }
+    },
+    "icon": "logo.png",
+    "extIcon": "https://raw.githubusercontent.com/gokturk413/iobroker.webui/master/admin/logo.png",
+    "connectionType": "local",
+    "dataSource": "push",
+    "platform": "Javascript/Node.js",
+    "loglevel": "info",
+    "tier": 3,
+    "enabled": true,
+    "compact": false,
+    "keywords": [
+      "GUI",
+      "graphical",
+      "scada",
+      "webcompoents",
+      "HTML"
+    ],
+    "readme": "https://github.com/gokturk413/iobroker.webui/blob/master/README.md",
+    "authors": [
+      "jogibear9988 <jochen.kuehner@gmx.de>"
+    ],
+    "localLinks": {
+      "_default": "%web_protocol%://%ip%:%web_port%/webui/runtime.html"
+    },
+    "licenseInformation": {
+      "license": "MIT",
+      "type": "free"
+    },
+    "dependencies": [
+      {
+        "js-controller": ">=5.0.19"
+      },
+      {
+        "web": ">=3.4.16"
+      }
+    ],
+    "restartAdapters": [],
+    "serviceStates": false,
+    "singleton": true,
+    "type": "visualization",
+    "noConfig": true,
+    "adminUI": {
+      "config": "none"
+    },
+    "materialize": true,
+    "onlyWWW": false,
+    "nogit": false,
+    "mode": "daemon",
+    "welcomeScreen": {
+      "link": "webui/index.html",
+      "name": "webui editor",
+      "img": "admin/logo.png",
+      "color": "#c8ffe1",
+      "order": 1
+    },
+    "installedFrom": "iobroker.webui@1.37.0"
+  },
+  "native": {},
+  "instanceObjects": [
+    {
+      "_id": "control",
+      "type": "folder",
+      "common": {
+        "name": "control"
+      },
+      "native": {}
+    },
+    {
+      "_id": "control.data",
+      "type": "state",
+      "common": {
+        "name": "data for command for webui",
+        "type": "string",
+        "desc": "additional data when running the command, needs to be set before setting the command.",
+        "read": true,
+        "write": true,
+        "role": "text"
+      },
+      "native": {}
+    },
+    {
+      "_id": "control.clientIds",
+      "type": "state",
+      "common": {
+        "name": "clientIds for command for webui",
+        "type": "string",
+        "desc": "clientIds when running the command, needs to be set before setting the command. splitted by ;",
+        "read": true,
+        "write": true,
+        "role": "text"
+      },
+      "native": {}
+    },
+    {
+      "_id": "control.command",
+      "type": "state",
+      "common": {
+        "name": "command for webui",
+        "type": "string",
+        "desc": "Writing this variable akt as the trigger. Instance and data must be preset before 'command' will be written.",
+        "states": {
+          "addNpm": "addNpm",
+          "removeNpm": "removeNpm",
+          "updateNpm": "updateNpm",
+          "refreshWww": "refreshWww",
+          "createImportmap": "createImportmap",
+          "uiConnected": "uiConnected",
+          "uiReloadPackages": "uiReloadPackages",
+          "uiReload": "uiReload",
+          "uiRefresh": "uiRefresh",
+          "uiChangeView": "uiChangeView",
+          "uiChangedView": "uiChangedView",
+          "uiOpenDialog": "uiOpenDialog",
+          "uiOpenedDialog": "uiOpenedDialog",
+          "uiPlaySound": "uiPlaySound",
+          "uiRunScript": "uiRunScript",
+          "uiAlert": "uiAlert"
+        },
+        "read": true,
+        "write": true,
+        "role": "text"
+      },
+      "native": {}
+    },
+    {
+      "_id": "state",
+      "type": "folder",
+      "common": {
+        "name": "state"
+      },
+      "native": {}
+    },
+    {
+      "_id": "state.npm",
+      "type": "state",
+      "common": {
+        "name": "state of package installation",
+        "type": "string",
+        "read": true,
+        "write": false,
+        "role": "text"
+      },
+      "native": {}
+    },
+    {
+      "_id": "widgets",
+      "type": "meta",
+      "common": {
+        "name": "Npm Packages for webui",
+        "role": "meta"
+      },
+      "native": {}
+    },
+    {
+      "_id": "data",
+      "type": "meta",
+      "common": {
+        "name": "Files for webui",
+        "type": "meta.user"
+      },
+      "native": {}
+    }
+  ]
+}

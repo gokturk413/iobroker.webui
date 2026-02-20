@@ -1,0 +1,10 @@
+[
+    {
+        "name": "",
+        "file": "/webui/dist/frontend/common/Common.globals.d.ts"
+    },
+    {
+        "name": "inmemory://model/@node-projects/base-custom-webcomponent.d.ts",
+        "file": "/webui/node_modules/@node-projects/base-custom-webcomponent/dist/BaseCustomWebComponent.d.ts"
+    }
+]

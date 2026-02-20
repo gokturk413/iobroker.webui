@@ -1,0 +1,16 @@
+import { TypedEvent } from '@node-projects/base-custom-webcomponent';
+export class DesignContext {
+    imports = [];
+    npmPackages = [];
+    extensionOptions = {
+        gridExtensionShowOverlay: false,
+        flexboxExtensionShowOverlay: false,
+        invisibleElementExtensionShowOverlay: false,
+        enableStylesheetService: false,
+        basicStackedToolbarExtensionShowOverlay: false,
+        simulateHoverOnHover: false,
+        selectUnhitableElements: true,
+    };
+    extensionOptionsChanged = new TypedEvent;
+}
+//# sourceMappingURL=DesignContext.js.map

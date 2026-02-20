@@ -1,0 +1,18 @@
+import { EditTextExtension } from "./EditTextExtension.js";
+import { css } from '@node-projects/base-custom-webcomponent';
+export class EditTextExtensionProvider {
+    shouldExtend(extensionManager, designerView, designItem) {
+        if (designItem.isRootItem)
+            return false;
+        if (designItem.name === 'input')
+            return false;
+        return true;
+    }
+    getExtension(extensionManager, designerView, designItem) {
+        return new EditTextExtension(extensionManager, designerView, designItem);
+    }
+    static style = css `
+    .svg-edit-text-clickoutside { stroke: transparent; fill: lightgray; opacity: 0.7 }
+  `;
+}
+//# sourceMappingURL=EditTextExtensionProvider.js.map

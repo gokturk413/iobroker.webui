@@ -1,0 +1,9 @@
+import { AbstractExtensionBase } from '../AbstractExtensionBase.js';
+//TODO: move draw functions to overlay layer, implement designerpointerextension, create ruler
+export class AbstractDesignerPointerExtension extends AbstractExtensionBase {
+    extendedItem;
+    constructor(extensionManager, designerCanvas) {
+        super(extensionManager, designerCanvas);
+    }
+}
+//# sourceMappingURL=AbstractDesignerPointerExtension.js.map

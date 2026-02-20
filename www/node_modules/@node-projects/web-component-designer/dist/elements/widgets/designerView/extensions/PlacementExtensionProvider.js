@@ -1,0 +1,14 @@
+import { css } from "@node-projects/base-custom-webcomponent";
+import { PlacementExtension } from './PlacementExtension.js';
+export class PlacementExtensionProvider {
+    shouldExtend(extensionManager, designerView, designItem) {
+        return true;
+    }
+    getExtension(extensionManager, designerView, designItem) {
+        return new PlacementExtension(extensionManager, designerView, designItem);
+    }
+    static style = css `
+    .svg-placement { stroke: #90caf9; fill: none; }
+  `;
+}
+//# sourceMappingURL=PlacementExtensionProvider.js.map

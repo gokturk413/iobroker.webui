@@ -1,0 +1,15 @@
+import { SelectionDefaultExtension } from './SelectionDefaultExtension.js';
+import { css } from "@node-projects/base-custom-webcomponent";
+import { NodeType } from '../../../item/NodeType.js';
+export class SelectionDefaultExtensionProvider {
+    shouldExtend(extensionManager, designerView, designItem) {
+        return !designItem.isRootItem && designItem.nodeType != NodeType.Comment && !(designItem.element instanceof HTMLTemplateElement);
+    }
+    getExtension(extensionManager, designerView, designItem) {
+        return new SelectionDefaultExtension(extensionManager, designerView, designItem);
+    }
+    static style = css `
+    .svg-selection { stroke: #3899ec; fill: transparent; stroke-width: 2; }
+  `;
+}
+//# sourceMappingURL=SelectionDefaultExtensionProvider.js.map
