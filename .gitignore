@@ -1,6 +1,9 @@
 # Original source code (not for GitHub)
 src-original/
 
+# License source code (only obfuscated version is public)
+www/license-check.js
+
 # License setup with real keys (private)
 LICENSE_SETUP.md
 
