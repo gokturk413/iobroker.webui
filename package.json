@@ -23,6 +23,8 @@
     "reflection-scripts": "cross-env typescript-json-schema './dist/frontend/scripting/IobrokerWebuiScriptCommands.d.ts' '*' --ignoreErrors --strictNullChecks --propOrder > ./src/frontend/generated/ScriptCommands.json",
     "reflection-props": "cp ./node_modules/@node-projects/web-component-designer-visualization-addons/dist/interfaces/IScriptMultiplexValue.d.ts ./src/frontend/interfaces/ && cross-env typescript-json-schema './src/frontend/interfaces/*.ts' '*' --ignoreErrors --strictNullChecks --propOrder > ./src/frontend/generated/Properties.json",
     "obfuscate": "node obfuscate-build.js",
+    "obfuscate-license": "node build-license-inline.js",
+    "obfuscate-all": "npm run obfuscate && npm run obfuscate-license",
     "release": "release-script"
   },
   "repository": {
