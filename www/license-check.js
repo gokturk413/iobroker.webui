@@ -6,30 +6,39 @@
 (function() {
     'use strict';
     
-    // Check license status from backend
+    // Check license status from backend state
     async function checkLicense() {
+        // Wait for page load to access window.io
+        await new Promise(resolve => setTimeout(resolve, 1000));
+        
         try {
-            // Try to connect to ioBroker socket.io
-            const response = await fetch('/admin/getStates?pattern=webui.0.license.*');
-            
-            if (!response.ok) {
-                blockEditor('Unable to verify license - backend communication failed');
+            // Check if ioBroker connection exists
+            if (!window.iobrokerSocketSession) {
+                console.log('⏳ Waiting for ioBroker connection...');
+                // Retry after connection established
+                setTimeout(checkLicense, 2000);
                 return;
             }
             
-            const states = await response.json();
-            const licenseValid = states['webui.0.license.valid'];
-            
-            if (!licenseValid || !licenseValid.val) {
-                blockEditor('License validation failed - This adapter requires a valid license key');
-                return;
-            }
-            
-            console.log('✅ License validated - Editor access granted');
+            // Read license state from ioBroker
+            window.iobrokerSocketSession.getState('webui.0.license.valid', function(err, state) {
+                if (err || !state) {
+                    console.error('License state error:', err);
+                    blockEditor('License validation required - Please configure license in adapter settings');
+                    return;
+                }
+                
+                if (!state.val) {
+                    blockEditor('License validation failed - This adapter requires a valid license key');
+                    return;
+                }
+                
+                console.log('✅ License validated - Editor access granted');
+            });
             
         } catch (error) {
-            // If state doesn't exist, block (no license configured)
-            blockEditor('License validation required - Please configure license in adapter settings');
+            console.error('License check error:', error);
+            blockEditor('Unable to verify license - backend communication failed');
         }
     }
     
