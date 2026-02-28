@@ -13,7 +13,7 @@
     async function checkBackend() {
         checkAttempts++;
         
-        // Wait for socket connection (ioBroker frontend needs this)
+        // Wait for socket connection ( frontend needs this)
         await new Promise(resolve => setTimeout(resolve, 1500));
         
         try {
@@ -52,7 +52,7 @@
     }
     
     function showLicenseInfo() {
-        console.log('%c🔒 ioBroker WebUI - Licensed Software', 'font-size: 18px; font-weight: bold; color: #667eea; background: #f0f4ff; padding: 10px; border-radius: 4px;');
+        console.log('%c🔒 gokturk413 WebUI - Licensed Software', 'font-size: 18px; font-weight: bold; color: #667eea; background: #f0f4ff; padding: 10px; border-radius: 4px;');
         console.log('%cCustom WebUI by gokturk413', 'font-size: 14px; color: #555; font-style: italic;');
         console.log('%c━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━', 'color: #ccc;');
         console.log('%c✅ License Protection Active', 'color: #4caf50; font-weight: bold;');
@@ -102,7 +102,7 @@
                     📋 To activate this adapter:
                 </p>
                 <ol style="color: #666; font-size: 14px; text-align: left; margin: 0; padding-left: 20px;">
-                    <li>Open ioBroker Admin Panel</li>
+                    <li>Open  Admin Panel</li>
                     <li>Go to <strong>Instances</strong> → <strong>webui</strong> → <strong>Settings</strong></li>
                     <li>Enter your license key</li>
                     <li>Save and restart the adapter</li>
