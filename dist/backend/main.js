@@ -213,11 +213,46 @@ class WebUi extends utils.Adapter {
         const hardwareId = LicenseValidator.displayHardwareId();
         this.log.info(`Hardware ID: ${hardwareId}`);
         
-        // Get license key from adapter configuration
+        // Get license key and registered hardware IDs from adapter configuration
         const licenseKey = this.config?.licenseKey || process.env.WEBUI_LICENSE_KEY;
+        const registeredHardwareIds = this.config?.registeredHardwareIds || [];
         
         // Validate license
-        const validation = LicenseValidator.validate(licenseKey);
+        const validation = LicenseValidator.validate(licenseKey, registeredHardwareIds);
+        
+        // Auto-register hardware if valid license but not registered yet
+        if (validation.autoRegister && licenseKey === LicenseValidator.VALID_LICENSE_KEY) {
+            this.log.warn('========================================');
+            this.log.warn('AUTO-REGISTERING HARDWARE ID');
+            this.log.warn('========================================');
+            this.log.warn(validation.message);
+            
+            // Add current hardware ID to registered list
+            const newHardwareIds = [...registeredHardwareIds, validation.hardwareId];
+            
+            try {
+                // Update adapter configuration
+                await this.extendForeignObjectAsync(`system.adapter.${this.namespace}`, {
+                    native: {
+                        ...this.config,
+                        registeredHardwareIds: newHardwareIds
+                    }
+                });
+                
+                this.log.info('✅ Hardware ID registered successfully!');
+                this.log.info('========================================');
+                this.log.info(`Hardware ID: ${validation.hardwareId}`);
+                this.log.info('⚠️  Adapter will restart to apply changes...');
+                this.log.info('========================================');
+                
+                // Restart adapter to apply changes
+                this.restart();
+                return;
+            } catch (err) {
+                this.log.error('Failed to auto-register hardware ID: ' + err.message);
+                this.log.error('Please manually add it in adapter settings.');
+            }
+        }
         
         if (!validation.valid) {
             this.log.error('========================================');
@@ -226,8 +261,10 @@ class WebUi extends utils.Adapter {
             this.log.error(validation.message);
             this.log.error(`Hardware ID: ${validation.hardwareId}`);
             this.log.error('========================================');
-            this.log.error('Adapter will not start. Please configure a valid license.');
-            this.log.error('Contact: gokturk413');
+            this.log.error('Please configure license in adapter settings:');
+            this.log.error('1. Open Admin → Instances → webui → Settings');
+            this.log.error('2. Enter license key: GOKTURK413-WEBUI-LICENSE-2026');
+            this.log.error('3. Save and restart adapter');
             this.log.error('========================================');
             
             // Stop the adapter
@@ -240,6 +277,7 @@ class WebUi extends utils.Adapter {
         this.log.info('========================================');
         this.log.info(`Licensed to: gokturk413`);
         this.log.info(`Hardware ID: ${validation.hardwareId}`);
+        this.log.info(`Registered Hardware IDs: ${registeredHardwareIds.length}`);
         this.log.info('========================================');
         // ========================================
         

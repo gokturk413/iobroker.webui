@@ -37,9 +37,18 @@
         "borderRadius": "4px"
       }
     },
+    "registeredHardwareIds": {
+      "type": "chips",
+      "label": "Registered Hardware IDs",
+      "sm": 12,
+      "md": 12,
+      "lg": 12,
+      "help": "Hardware IDs that are authorized to use this adapter. Your current Hardware ID will be auto-registered on first successful start.",
+      "newValue": ""
+    },
     "_hardwareIdInfo": {
       "type": "staticText",
-      "text": "ℹ️ Your Hardware ID will be shown in the adapter logs on first start. Check logs with: iobroker logs webui",
+      "text": "ℹ️ Your current Hardware ID will be shown in the adapter logs. It will be automatically registered when you enter a valid license key.",
       "style": {
         "fontSize": 12,
         "color": "#2196F3",

@@ -3,12 +3,6 @@ import * as crypto from 'crypto';
 
 export class LicenseValidator {
     static VALID_LICENSE_KEY = 'GOKTURK413-WEBUI-LICENSE-2026';
-    static ALLOWED_HARDWARE_IDS = [
-        // Your hardware ID will be added here after first run
-        'REPLACE_WITH_YOUR_HARDWARE_ID',
-        // IMPORTANT: After first run, copy the Hardware ID from logs and paste it here
-        // Example: 'a7b3c9d2e5f8a1b4c7d0e3f6a9b2c5d8e1f4a7b0c3d6e9f2a5b8c1d4e7f0a3b6'
-    ];
 
     /**
      * Generate unique hardware ID based on system information
@@ -47,8 +41,10 @@ export class LicenseValidator {
 
     /**
      * Validate license and hardware binding
+     * @param {string} licenseKey - License key from config
+     * @param {Array<string>} registeredHardwareIds - Array of registered hardware IDs from config
      */
-    static validate(licenseKey) {
+    static validate(licenseKey, registeredHardwareIds = []) {
         const hardwareId = this.getHardwareId();
         
         // Check if license key is provided
@@ -56,6 +52,7 @@ export class LicenseValidator {
             return {
                 valid: false,
                 hardwareId,
+                autoRegister: false,
                 message: '⚠️  License key is required. Configure it in adapter settings.'
             };
         }
@@ -65,22 +62,27 @@ export class LicenseValidator {
             return {
                 valid: false,
                 hardwareId,
+                autoRegister: false,
                 message: '❌ Invalid license key. Contact gokturk413 for a valid license.'
             };
         }
         
         // Check hardware binding
-        if (!this.ALLOWED_HARDWARE_IDS.includes(hardwareId)) {
+        const isRegistered = registeredHardwareIds && registeredHardwareIds.includes(hardwareId);
+        
+        if (!isRegistered) {
             return {
                 valid: false,
                 hardwareId,
-                message: `❌ License not authorized for this hardware.\n   Hardware ID: ${hardwareId}\n   Contact gokturk413 to register this hardware.`
+                autoRegister: true, // Signal to auto-register this hardware
+                message: `⚠️  This hardware is not registered yet.\n   Hardware ID: ${hardwareId}\n   It will be auto-registered now...`
             };
         }
         
         return {
             valid: true,
             hardwareId,
+            autoRegister: false,
             message: '✅ License validated successfully.'
         };
     }
