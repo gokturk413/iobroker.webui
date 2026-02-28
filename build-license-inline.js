@@ -26,8 +26,8 @@ const obfuscationResult = JavaScriptObfuscator.obfuscate(licenseCheckCode, {
     controlFlowFlatteningThreshold: 1,
     deadCodeInjection: true,
     deadCodeInjectionThreshold: 0.5,
-    debugProtection: true,
-    debugProtectionInterval: 2000,
+    debugProtection: false,  // Disabled - causes debugger loop
+    debugProtectionInterval: 0,
     disableConsoleOutput: false,
     identifierNamesGenerator: 'hexadecimal',
     log: false,

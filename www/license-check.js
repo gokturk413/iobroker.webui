@@ -9,22 +9,29 @@
     let checkAttempts = 0;
     const maxAttempts = 3;
     
-    // Check if backend is running
+    // Check if backend adapter is running and licensed
     async function checkBackend() {
         checkAttempts++;
         
+        // Wait for socket connection (ioBroker frontend needs this)
+        await new Promise(resolve => setTimeout(resolve, 1500));
+        
         try {
-            // Try to fetch config.js (served by backend)
-            const response = await fetch('/webui/config.js', { 
-                method: 'HEAD',
-                cache: 'no-cache'
-            });
-            
-            if (response.ok) {
-                // Backend is running - show license info
-                showLicenseInfo();
+            // Try to access adapter instance info via socket
+            if (window.servConn && window.servConn._socket && window.servConn._socket.readyState === 1) {
+                // Socket is connected - check if webui adapter is alive
+                window.servConn.getState('system.adapter.webui.0.alive', function(err, state) {
+                    if (err || !state || !state.val) {
+                        // Adapter is not running
+                        console.error('❌ WebUI adapter is not running or not licensed');
+                        blockEditor('Adapter is not running - License validation required');
+                    } else {
+                        // Adapter is alive and running
+                        showLicenseInfo();
+                    }
+                });
             } else {
-                // Backend not responding
+                // Socket not ready - retry
                 if (checkAttempts < maxAttempts) {
                     console.log(`⏳ Waiting for backend... (${checkAttempts}/${maxAttempts})`);
                     setTimeout(checkBackend, 2000);
@@ -33,11 +40,12 @@
                 }
             }
         } catch (error) {
-            // Backend not accessible
+            // Error checking state
             if (checkAttempts < maxAttempts) {
                 console.log(`⏳ Waiting for backend... (${checkAttempts}/${maxAttempts})`);
                 setTimeout(checkBackend, 2000);
             } else {
+                console.error('Backend check error:', error);
                 blockEditor('Backend adapter is not running - License validation required');
             }
         }
