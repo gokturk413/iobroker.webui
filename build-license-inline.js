@@ -51,32 +51,37 @@ const obfuscationResult = JavaScriptObfuscator.obfuscate(licenseCheckCode, {
 
 const obfuscatedCode = obfuscationResult.getObfuscatedCode();
 
+// Write obfuscated file separately (too large for inline)
+const obfuscatedFile = path.join(__dirname, 'www', 'license-check.obf.js');
+fs.writeFileSync(obfuscatedFile, obfuscatedCode, 'utf8');
+
 // Read index.html
 let indexHtml = fs.readFileSync(INDEX_HTML_FILE, 'utf8');
 
-// Remove external script tag
+// Remove any existing license check references
 indexHtml = indexHtml.replace(
-    /\s*<!-- License validation - gokturk413 -->\s*\n\s*<script src="\.\/license-check\.js"><\/script>/g,
+    /\s*<!-- License validation.*?-->\s*\n\s*<script.*?license-check.*?><\/script>/gs,
     ''
 );
 
-// Add inline obfuscated script
-const inlineScript = `
-  <!-- License validation - gokturk413 (obfuscated) -->
-  <script>
-${obfuscatedCode}
-  </script>`;
+// Remove massive inline obfuscated code if exists
+indexHtml = indexHtml.replace(
+    /\s*<!-- License validation.*?-->\s*\n\s*<script>\s*\(function\(_0x[a-f0-9]+.*?<\/script>/gs,
+    ''
+);
 
-// Insert before mobile-drag-drop
+// Add obfuscated external script reference
+const licenseScript = '  <!-- License validation - gokturk413 (obfuscated) -->\n  <script src="./license-check.obf.js"></script>\n\n  ';
+
 indexHtml = indexHtml.replace(
     '<script src="./node_modules/mobile-drag-drop/index.js"></script>',
-    inlineScript + '\n\n  <script src="./node_modules/mobile-drag-drop/index.js"></script>'
+    licenseScript + '<script src="./node_modules/mobile-drag-drop/index.js"></script>'
 );
 
 // Write updated index.html
 fs.writeFileSync(INDEX_HTML_FILE, indexHtml, 'utf8');
 
-console.log('✅ License check obfuscated and inlined successfully!');
+console.log('✅ License check obfuscated successfully!');
 console.log(`   Original size: ${licenseCheckCode.length} bytes`);
 console.log(`   Obfuscated size: ${obfuscatedCode.length} bytes`);
 console.log(`   Size increase: +${((obfuscatedCode.length - licenseCheckCode.length) / licenseCheckCode.length * 100).toFixed(1)}%\n`);
