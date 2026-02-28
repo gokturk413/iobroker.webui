@@ -6,6 +6,7 @@ import { fileURLToPath } from 'url';
 import { Uploadhelper } from './UploadHelper.js';
 import { ImportmapCreator } from './ImportmapCreator.js';
 import url from "node:url";
+import { LicenseValidator } from './LicenseValidator.js';
 const __dirname = path.normalize(path.join(path.dirname(fileURLToPath(import.meta.url)), "../.."));
 const pkg = JSON.parse(fs.readFileSync(new URL('../../package.json', import.meta.url)).toString());
 const adapterName = pkg.name.split('.').pop();
@@ -202,6 +203,46 @@ class WebUi extends utils.Adapter {
     }
     async main() {
         this.log.info(`dirName: ` + __dirname);
+        
+        // ========================================
+        // LICENSE VALIDATION - gokturk413
+        // ========================================
+        this.log.info('🔒 Validating license...');
+        
+        // Display hardware ID for initial setup
+        const hardwareId = LicenseValidator.displayHardwareId();
+        this.log.info(`Hardware ID: ${hardwareId}`);
+        
+        // Get license key from adapter configuration
+        const licenseKey = this.config?.licenseKey || process.env.WEBUI_LICENSE_KEY;
+        
+        // Validate license
+        const validation = LicenseValidator.validate(licenseKey);
+        
+        if (!validation.valid) {
+            this.log.error('========================================');
+            this.log.error('LICENSE VALIDATION FAILED');
+            this.log.error('========================================');
+            this.log.error(validation.message);
+            this.log.error(`Hardware ID: ${validation.hardwareId}`);
+            this.log.error('========================================');
+            this.log.error('Adapter will not start. Please configure a valid license.');
+            this.log.error('Contact: gokturk413');
+            this.log.error('========================================');
+            
+            // Stop the adapter
+            this.terminate ? this.terminate('License validation failed') : process.exit(1);
+            return;
+        }
+        
+        this.log.info('========================================');
+        this.log.info('✅ LICENSE VALIDATED SUCCESSFULLY');
+        this.log.info('========================================');
+        this.log.info(`Licensed to: gokturk413`);
+        this.log.info(`Hardware ID: ${validation.hardwareId}`);
+        this.log.info('========================================');
+        // ========================================
+        
         await this.setState(this._stateNpm, { val: 'idle', ack: true });
         await this.subscribeStatesAsync('*', {});
         this.log.info(`adapter ready`);
