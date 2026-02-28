@@ -1,6 +1,9 @@
 # Original source code (not for GitHub)
 src-original/
 
+# License setup with real keys (private)
+LICENSE_SETUP.md
+
 # Node modules
 node_modules/
 

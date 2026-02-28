@@ -70,7 +70,7 @@ This adapter requires a license key to operate. After installation:
 
 3. **Auto-Registration** - Your hardware will be automatically registered on first successful start
 
-For detailed setup instructions, see [LICENSE_SETUP.md](./LICENSE_SETUP.md)
+For detailed setup instructions, see [LICENSE_SETUP_PUBLIC.md](./LICENSE_SETUP_PUBLIC.md)
 
 **Note:** This is a hardware-bound license. The adapter will only work on registered hardware. Contact **gokturk413** for licensing.
 
