@@ -1,0 +1,53 @@
+{
+  "WebUI Adapter Configuration": {
+    "en": "WebUI Adapter Configuration",
+    "de": "WebUI-Adapter-Konfiguration",
+    "ru": "Конфигурация адаптера WebUI",
+    "pt": "Configuração do adaptador WebUI",
+    "nl": "WebUI-adapterconfiguratie",
+    "fr": "Configuration de l'adaptateur WebUI",
+    "it": "Configurazione dell'adattatore WebUI",
+    "es": "Configuración del adaptador WebUI",
+    "pl": "Konfiguracja adaptera WebUI",
+    "uk": "Конфігурація адаптера WebUI",
+    "zh-cn": "WebUI 适配器配置"
+  },
+  "This adapter requires a valid license key to operate. The license is bound to your hardware for security purposes.": {
+    "en": "This adapter requires a valid license key to operate. The license is bound to your hardware for security purposes.",
+    "de": "Dieser Adapter benötigt einen gültigen Lizenzschlüssel. Die Lizenz ist aus Sicherheitsgründen an Ihre Hardware gebunden.",
+    "ru": "Для работы этого адаптера требуется действительный лицензионный ключ. Лицензия привязана к вашему оборудованию в целях безопасности.",
+    "az": "Bu adapter işləmək üçün etibarlı lisenziya açarı tələb edir. Lisenziya təhlükəsizlik məqsədləri üçün avadanlığınıza bağlıdır."
+  },
+  "License Key": {
+    "en": "License Key",
+    "de": "Lizenzschlüssel",
+    "ru": "Лицензионный ключ",
+    "pt": "Chave de licença",
+    "nl": "Licentiesleutel",
+    "fr": "Clé de licence",
+    "it": "Chiave di licenza",
+    "es": "Clave de licencia",
+    "pl": "Klucz licencyjny",
+    "uk": "Ліцензійний ключ",
+    "zh-cn": "许可证密钥",
+    "az": "Lisenziya açarı"
+  },
+  "Enter your license key here": {
+    "en": "Enter your license key here",
+    "de": "Geben Sie hier Ihren Lizenzschlüssel ein",
+    "ru": "Введите лицензионный ключ здесь",
+    "az": "Lisenziya açarınızı bura daxil edin"
+  },
+  "Contact gokturk413 for a valid license key": {
+    "en": "Contact gokturk413 for a valid license key",
+    "de": "Kontaktieren Sie gokturk413 für einen gültigen Lizenzschlüssel",
+    "ru": "Свяжитесь с gokturk413 для получения действительного лицензионного ключа",
+    "az": "Etibarlı lisenziya açarı üçün gokturk413 ilə əlaqə saxlayın"
+  },
+  "Setup Instructions": {
+    "en": "Setup Instructions",
+    "de": "Einrichtungsanleitung",
+    "ru": "Инструкции по настройке",
+    "az": "Quraşdırma təlimatları"
+  }
+}

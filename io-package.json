@@ -161,9 +161,9 @@
     "serviceStates": false,
     "singleton": true,
     "type": "visualization",
-    "noConfig": true,
+    "noConfig": false,
     "adminUI": {
-      "config": "none"
+      "config": "json"
     },
     "materialize": true,
     "onlyWWW": false,
@@ -178,7 +178,9 @@
     },
     "installedFrom": "iobroker.webui@1.37.0"
   },
-  "native": {},
+  "native": {
+    "licenseKey": ""
+  },
   "instanceObjects": [
     {
       "_id": "control",

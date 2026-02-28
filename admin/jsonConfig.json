@@ -1,0 +1,83 @@
+{
+  "type": "panel",
+  "i18n": true,
+  "items": {
+    "_info": {
+      "type": "header",
+      "text": "WebUI Adapter Configuration",
+      "size": 3
+    },
+    "_licenseInfo": {
+      "type": "staticText",
+      "text": "This adapter requires a valid license key to operate. The license is bound to your hardware for security purposes.",
+      "style": {
+        "fontSize": 14,
+        "color": "#666",
+        "marginBottom": 20
+      }
+    },
+    "licenseKey": {
+      "type": "text",
+      "label": "License Key",
+      "sm": 12,
+      "md": 8,
+      "lg": 6,
+      "placeholder": "Enter your license key here",
+      "help": "Contact gokturk413 for a valid license key"
+    },
+    "_licenseWarning": {
+      "type": "staticText",
+      "text": "⚠️ Important: This license is hardware-bound. If you see validation errors in the logs, copy your Hardware ID and contact gokturk413.",
+      "style": {
+        "fontSize": 13,
+        "color": "#ff9800",
+        "marginTop": 10,
+        "padding": "10px",
+        "backgroundColor": "#fff3e0",
+        "borderRadius": "4px"
+      }
+    },
+    "_hardwareIdInfo": {
+      "type": "staticText",
+      "text": "ℹ️ Your Hardware ID will be shown in the adapter logs on first start. Check logs with: iobroker logs webui",
+      "style": {
+        "fontSize": 12,
+        "color": "#2196F3",
+        "marginTop": 10,
+        "padding": "8px",
+        "backgroundColor": "#e3f2fd",
+        "borderRadius": "4px"
+      }
+    },
+    "_separator": {
+      "type": "divider"
+    },
+    "_instructionsHeader": {
+      "type": "header",
+      "text": "Setup Instructions",
+      "size": 4
+    },
+    "_instructions": {
+      "type": "staticText",
+      "text": "1. Start the adapter (it will fail on first run)\n2. Check logs: iobroker logs webui --lines 50\n3. Copy your Hardware ID from logs\n4. Send Hardware ID to gokturk413\n5. Enter the license key here\n6. Restart the adapter",
+      "style": {
+        "fontSize": 13,
+        "fontFamily": "monospace",
+        "whiteSpace": "pre-line",
+        "padding": "10px",
+        "backgroundColor": "#f5f5f5",
+        "borderRadius": "4px"
+      }
+    },
+    "_contactInfo": {
+      "type": "staticText",
+      "text": "📧 Contact: gokturk413 | 🔒 Licensed Software",
+      "style": {
+        "fontSize": 12,
+        "color": "#999",
+        "marginTop": 20,
+        "textAlign": "center"
+      }
+    }
+  }
+}
