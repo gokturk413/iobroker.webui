@@ -7,6 +7,11 @@
 
 [![NPM](https://nodei.co/npm/iobroker.webui.png?downloads=true)](https://nodei.co/npm/iobroker.webui/)
 
+**Custom edited WebUI adapter by gokturk413** - Enhanced version with additional features and optimizations.
+
+> **⚠️ IMPORTANT: This adapter requires a valid license key to operate.**  
+> This is a hardware-bound licensed version. Contact **gokturk413** for licensing information.
+
 webui for ioBroker
 
 ![image](https://raw.githubusercontent.com/iobroker-community-adapters/ioBroker.webui/master/screenshot.png)
@@ -40,9 +45,35 @@ There is more information about specific topics in the [wiki](https://github.com
 
 ## Installation
 
-### Dependecies
+### Quick Install
+
+```bash
+iobroker install gokturk413/iobroker.webui
+```
+
+### Dependencies
 
   - You need the Web Adapter installed. It works with the following settings: ![image](https://raw.githubusercontent.com/iobroker-community-adapters/ioBroker.webui/master/web.png)
+
+### License Setup
+
+This adapter requires a license key to operate. After installation:
+
+1. **First Start** - The adapter will fail (this is normal). Check logs for your Hardware ID:
+   ```bash
+   iobroker logs webui --lines 50
+   ```
+
+2. **Configure License** - Open Admin Panel → Instances → webui → Settings
+   - Enter the license key provided by gokturk413
+   - Save and restart
+
+3. **Auto-Registration** - Your hardware will be automatically registered on first successful start
+
+For detailed setup instructions, see [LICENSE_SETUP.md](./LICENSE_SETUP.md)
+
+**Note:** This is a hardware-bound license. The adapter will only work on registered hardware. Contact **gokturk413** for licensing.
+
   
 ## Concepts
 
@@ -1123,7 +1154,26 @@ runtime.html?screenName=screen2
 ### 0.1.0 (2023-08-27)
 -   initial public release
 
+## Credits
+
+**Original Author:** jogibear9988 (Jochen Kühner)  
+**Custom Edition:** gokturk413
+
+This is a custom edited and enhanced version of the original ioBroker.webui adapter with additional features and hardware-bound licensing.
+
+### Original Repository
+https://github.com/iobroker-community-adapters/ioBroker.webui
+
+---
+
 ## License
+
 The MIT License (MIT)
 
+**Original Work:**  
 Copyright (c) 2025 jogibear9988 <jochen.kuehner@gmx.de>
+
+**Modified Work:**  
+Copyright (c) 2026 gokturk413
+
+**Note:** This custom edition includes proprietary license validation and hardware binding features.
