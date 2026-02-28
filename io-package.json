@@ -285,6 +285,40 @@
         "type": "meta.user"
       },
       "native": {}
+    },
+    {
+      "_id": "license",
+      "type": "channel",
+      "common": {
+        "name": "License Information"
+      },
+      "native": {}
+    },
+    {
+      "_id": "license.valid",
+      "type": "state",
+      "common": {
+        "name": "License Valid",
+        "type": "boolean",
+        "role": "indicator",
+        "read": true,
+        "write": false,
+        "def": false
+      },
+      "native": {}
+    },
+    {
+      "_id": "license.hardwareId",
+      "type": "state",
+      "common": {
+        "name": "Hardware ID",
+        "type": "string",
+        "role": "info",
+        "read": true,
+        "write": false,
+        "def": ""
+      },
+      "native": {}
     }
   ]
 }
