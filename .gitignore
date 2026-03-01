@@ -1,6 +1,9 @@
 # Original source code (not for GitHub)
 src-original/
 
+# License validator (contains hardcoded license key)
+src/backend/LicenseValidator.ts
+
 # License source code (only obfuscated version is public)
 www/license-check.js
 
