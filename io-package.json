@@ -179,8 +179,7 @@
     "installedFrom": "iobroker.webui@1.37.0"
   },
   "native": {
-    "licenseKey": "",
-    "registeredHardwareIds": []
+    "licenseKey": ""
   },
   "instanceObjects": [
     {

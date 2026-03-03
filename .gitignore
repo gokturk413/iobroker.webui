@@ -1,14 +1,36 @@
 # Original source code (not for GitHub)
 src-original/
 
-# License validator (contains hardcoded license key)
+# License validator source (contains SECRET_KEY)
 src/backend/LicenseValidator.ts
+src-backend/
+
+# License tools (private - contains SECRET_KEY)
+tools/license-generator.js
+tools/build-license.js
+tools/obfuscate-license-validator.js
+tools/obfuscate-license-simple.mjs
+.env
+.env.example
+
+# Build scripts (development only)
+obfuscate-build.js
+build-license-inline.js
+
+# License source files (only obfuscated versions are public)
+src-original/backend/LicenseValidator.js
+dist/backend/LicenseValidator-source.js
 
 # License source code (only obfuscated version is public)
 www/license-check.js
 
 # License setup with real keys (private)
 LICENSE_SETUP.md
+PRIVATE_README.md
+ENCRYPTED_LICENSE_SUMMARY.md
+FILE_STRUCTURE_GUIDE.md
+LICENSE_GUIDE.md
+FRONTEND_LICENSE_INFO.md
 
 # Node modules
 node_modules/

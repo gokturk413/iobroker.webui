@@ -35,6 +35,5 @@
     "@gokturk413/button",
     "@gokturk413/scada-pipe-component",
     "@gokturk413/svg-popup-dialog",
-    "@gokturk413/tank-level-indicator",
-    "rockiot-ui"
+    "@gokturk413/tank-level-indicator"
 ]

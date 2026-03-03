@@ -25,6 +25,8 @@
     "obfuscate": "node obfuscate-build.js",
     "obfuscate-license": "node build-license-inline.js",
     "obfuscate-all": "npm run obfuscate && npm run obfuscate-license",
+    "build-license-validator": "node tools/obfuscate-license-simple.mjs",
+    "license-generate": "node tools/license-generator.js",
     "release": "release-script"
   },
   "repository": {

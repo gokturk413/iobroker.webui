@@ -29,7 +29,7 @@
     },
     "_licenseWarning": {
       "type": "staticText",
-      "text": "⚠️ Important: This license is hardware-bound. If you see validation errors in the logs, copy your Hardware ID and contact gokturk413.",
+      "text": "⚠️ Important: License keys are cryptographically bound to hardware IDs. To add a new computer, contact gokturk413 with your Hardware ID.",
       "style": {
         "fontSize": 13,
         "color": "#ff9800",
@@ -39,17 +39,9 @@
         "borderRadius": "4px"
       }
     },
-    "registeredHardwareIds": {
-      "type": "chips",
-      "label": "Registered Hardware IDs",
-      "sm": 12,
-      "md": 12,
-      "lg": 12,
-      "help": "Hardware IDs that are authorized to use this adapter. Your current Hardware ID will be auto-registered on first successful start."
-    },
     "_hardwareIdInfo": {
       "type": "staticText",
-      "text": "ℹ️ Your current Hardware ID will be shown in the adapter logs. It will be automatically registered when you enter a valid license key.",
+      "text": "ℹ️ Your Hardware ID will be shown in the adapter logs on first start. You cannot manually add hardware IDs - they are encrypted in the license key.",
       "style": {
         "fontSize": 12,
         "color": "#2196F3",
@@ -69,7 +61,7 @@
     },
     "_instructions": {
       "type": "staticText",
-      "text": "1. Start the adapter (it will fail on first run)\n2. Check logs: iobroker logs webui --lines 50\n3. Copy your Hardware ID from logs\n4. Send Hardware ID to gokturk413\n5. Enter the license key here\n6. Restart the adapter",
+      "text": "1. Start the adapter (it will fail on first run)\n2. Check logs: iobroker logs webui --lines 50\n3. Copy your Hardware ID from logs\n4. Send Hardware ID to gokturk413 to get a license\n5. Enter the license key here\n6. Restart the adapter\n\n💡 To add another computer: Send its Hardware ID to get an updated license key.",
       "style": {
         "fontSize": 13,
         "fontFamily": "monospace",
