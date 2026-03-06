@@ -60,3 +60,6 @@ yarn-error.log*
 *.tmp
 temp/
 tmp/
+
+# Temp test files
+temp_*.js
