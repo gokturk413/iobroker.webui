@@ -34,6 +34,8 @@ FRONTEND_LICENSE_INFO.md
 
 # Node modules
 node_modules/
+widgets/node_modules/
+widgets/package-lock.json
 
 # Build outputs
 *.tsbuildinfo
