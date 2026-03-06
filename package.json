@@ -50,6 +50,7 @@
     "admin/",
     "dist/",
     "www/",
+    "widgets/",
     "io-package.json",
     "LICENSE",
     "README.md"
