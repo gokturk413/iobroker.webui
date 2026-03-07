@@ -2,19 +2,45 @@
 
 ## 🔧 Quraşdırma
 
-### 1. WebUI-də Additional Files əlavə edin
+### Addım 1: Fayllar Artıq Additional Files-dadır
 
-ioBroker WebUI → Settings → Additional Files → scada-utils.js faylını əlavə edin
+Adapter install olunduqda SCADA funksiyaları avtomatik olaraq Additional Files-a əlavə olunur.
 
-### 2. Project-də İstinad Edin
+Yoxlamaq üçün: **WebUI → Settings → Additional Files** → `scada-utils.js` görünməlidir.
 
-WebUI-nin HTML head bölməsinə və ya hər hansı screen-də:
+### Addım 2: Screen-də Yükləyin
+
+**Variant 1: Hər Screen-də Ayrıca (Tövsiyə Edilir)**
+
+Screen-in HTML bölməsinə əlavə edin:
 
 ```html
-<script src="/webui.0/scada-utils.js"></script>
+<script src="/webui.0/data/scada-utils.js"></script>
+
+<!-- İndi screen-də istifadə edin -->
+<div id="temp-display"></div>
 ```
 
-Və ya WebUI config.json-da global olaraq əlavə edin.
+**Variant 2: Global Yükləmə (Bütün Screen-lər üçün)**
+
+WebUI Settings → Global CSS/JS → JavaScript bölməsinə:
+
+```javascript
+// Global yükləmə
+const script = document.createElement('script');
+script.src = '/webui.0/data/scada-utils.js';
+document.head.appendChild(script);
+```
+
+### Addım 3: İstifadə Edin
+
+Script yüklənəndən sonra funksiyalar `window` obyektində olacaq:
+
+```javascript
+// Custom Control-da və ya Screen-də
+const formatted = scadaFormatValue(23.5, {decimals: 1, suffix: ' °C'});
+console.log(formatted); // "23.5 °C"
+```
 
 ---
 
@@ -288,6 +314,91 @@ scadaToggle('on')   // false
 
 ---
 
+## 🖥️ Screen-də İstifadə (Praktik Nümunə)
+
+### Tam Screen Nümunəsi
+
+**HTML:**
+```html
+<!-- SCADA funksiyalarını yükləyin -->
+<script src="/webui.0/data/scada-utils.js"></script>
+
+<style>
+    .temp-display {
+        font-size: 48px;
+        font-weight: bold;
+        padding: 20px;
+        border-radius: 10px;
+        text-align: center;
+    }
+</style>
+
+<div class="temp-display" id="tempDisplay">--</div>
+```
+
+**JavaScript (Screen Script):**
+```javascript
+export function init() {
+    // State-ə bind edin (məsələn, sensor dəyəri)
+    const tempState = 'alias.0.temperature'; // Sizin state
+    
+    // State dəyişəndə
+    vis.states.bind(tempState + '.val', (e, val) => {
+        const tempEl = document.getElementById('tempDisplay');
+        
+        // SCADA funksiyası ilə format edin
+        const formatted = scadaFormatValue(val, {
+            decimals: 1,
+            suffix: ' °C'
+        });
+        
+        // Alarm yoxlayın
+        const alarm = scadaCheckAlarm(val, {
+            hihi: 85,
+            hi: 75,
+            lo: 15,
+            lolo: 5
+        });
+        
+        // Rəngi təyin edin
+        const color = scadaAlarmColor(alarm);
+        
+        // Göstərin
+        tempEl.textContent = formatted;
+        tempEl.style.color = color;
+    });
+}
+```
+
+**Və ya sadə olaraq (Binding ilə):**
+```html
+<script src="/webui.0/data/scada-utils.js"></script>
+
+<div>
+    <!-- Binding: {temperature} state-dən gələcək -->
+    <span id="temp"></span>
+</div>
+
+<script>
+    // Temperature state dəyişəndə
+    window.addEventListener('load', () => {
+        // Binding-dən gələn dəyəri format edin
+        const updateTemp = (temp) => {
+            document.getElementById('temp').textContent = 
+                scadaFormatValue(temp, {decimals: 1, suffix: ' °C'});
+        };
+        
+        // İlk dəfə çağırın
+        updateTemp(temperature);
+        
+        // State change event
+        // (WebUI-nin event sisteminə uyğun olaraq)
+    });
+</script>
+```
+
+---
+
 ## 🎨 Custom Control-da İstifadə
 
 ### Nümunə 1: Temperature Display
@@ -450,6 +561,74 @@ const formatted = scadaFormatValue(powerKw, {
 3. **Alarm sistemləri** üçün checkAlarm və alarmColor istifadə edin
 4. **Trend analysis** üçün movingAverage və stats istifadə edin
 5. **Unit conversion** üçün hazır çevirmə funksiyalarını istifadə edin
+
+---
+
+## 🔍 Troubleshooting
+
+### Problem: `scadaFormatValue is not defined`
+
+**Səbəb:** SCADA script yüklənməyib.
+
+**Həll:**
+
+1. **Script tag yoxlayın:**
+```html
+<!-- Screen HTML-də olmalıdır -->
+<script src="/webui.0/data/scada-utils.js"></script>
+```
+
+2. **Yolun düzgünlüyünü yoxlayın:**
+   - Browser console-da: `Network` tab
+   - `/webui.0/data/scada-utils.js` yüklənməlidir
+   - Əgər 404 error gəlirsə, fayl düzgün qovluqda deyil
+
+3. **Alternative yol:**
+```html
+<!-- Tam path -->
+<script src="http://localhost:8082/webui.0/data/scada-utils.js"></script>
+```
+
+4. **Yüklənməni yoxlayın:**
+```javascript
+// Browser console-da
+console.log(typeof scadaFormatValue); 
+// "function" olmalıdır
+```
+
+### Problem: Funksiyalar Screen-də işləmir
+
+**Həll:** Script yüklənməsini gözləyin:
+
+```html
+<script src="/webui.0/data/scada-utils.js"></script>
+
+<script>
+    // Script yüklənməsini gözləyin
+    window.addEventListener('load', function() {
+        // İndi SCADA funksiyalarını istifadə edə bilərsiniz
+        console.log('SCADA ready!');
+        console.log(scadaFormatValue(25, {suffix: ' °C'}));
+    });
+</script>
+```
+
+### Problem: Additional Files-da scada-utils.js yoxdur
+
+**Həll:**
+
+1. **Manual kopyalayın:**
+```bash
+npm run setup-scada
+```
+
+2. **Və ya manuel:**
+   - `node_modules/iobroker.webui/www/default-additionalfiles/scada-utils.js`
+   - Kopyalayın → `iobroker-data/files/webui.0.data/config/additionalfiles/`
+
+3. **WebUI Settings-də yoxlayın:**
+   - Settings → Additional Files
+   - scada-utils.js görünməlidir
 
 ---
 
