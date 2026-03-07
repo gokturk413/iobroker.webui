@@ -23,6 +23,7 @@
       resolve: (id, parentUrl, resolve) => {
         if (!storedParentUrl)
           storedParentUrl = parentUrl;
+        if (parentUrl.startsWith('blob:'))
           parentUrl = storedParentUrl;
         return resolve(id, parentUrl)
       }
