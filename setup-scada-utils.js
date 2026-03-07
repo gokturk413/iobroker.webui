@@ -8,8 +8,12 @@
  * Can also be run manually: npm run setup-scada
  */
 
-const fs = require('fs');
-const path = require('path');
+import fs from 'fs';
+import path from 'path';
+import { fileURLToPath } from 'url';
+
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
 
 // Check if running in silent mode (from postinstall)
 const silent = process.argv.includes('--silent') || process.env.npm_lifecycle_event === 'postinstall';
@@ -124,8 +128,8 @@ function main() {
 }
 
 // Run if called directly
-if (require.main === module) {
+if (import.meta.url === `file://${process.argv[1]}`) {
     main();
 }
 
-module.exports = { findIobrokerDataPath, copyFiles };
+export { findIobrokerDataPath, copyFiles };
