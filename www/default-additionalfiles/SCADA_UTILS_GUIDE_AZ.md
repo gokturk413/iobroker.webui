@@ -8,33 +8,17 @@ Adapter install olunduqda SCADA funksiyaları avtomatik olaraq Additional Files-
 
 Yoxlamaq üçün: **WebUI → Settings → Additional Files** → `scada-utils.js` görünməlidir.
 
-### Addım 2: Screen-də Yükləyin
+### Addım 2: Avtomatik Yüklənir! ✅
 
-**Variant 1: Hər Screen-də Ayrıca (Tövsiyə Edilir)**
+**SCADA funksiyaları artıq BÜTÜN screen-lər üçün avtomatik yüklənir!**
 
-Screen-in HTML bölməsinə əlavə edin:
+`runtime.html` və `index.html` fayllarında SCADA script global olaraq əlavə edilib. 
 
-```html
-<script src="/webui.0/data/scada-utils.js"></script>
-
-<!-- İndi screen-də istifadə edin -->
-<div id="temp-display"></div>
-```
-
-**Variant 2: Global Yükləmə (Bütün Screen-lər üçün)**
-
-WebUI Settings → Global CSS/JS → JavaScript bölməsinə:
-
-```javascript
-// Global yükləmə
-const script = document.createElement('script');
-script.src = '/webui.0/data/scada-utils.js';
-document.head.appendChild(script);
-```
+**Heç bir manual yükləmə lazım deyil!** Sadəcə istifadə edin.
 
 ### Addım 3: İstifadə Edin
 
-Script yüklənəndən sonra funksiyalar `window` obyektində olacaq:
+Funksiyalar artıq `window` obyektində mövcuddur və hər yerdə istifadə edilə bilər:
 
 ```javascript
 // Custom Control-da və ya Screen-də
@@ -320,8 +304,7 @@ scadaToggle('on')   // false
 
 **HTML:**
 ```html
-<!-- SCADA funksiyalarını yükləyin -->
-<script src="/webui.0/data/scada-utils.js"></script>
+<!-- SCADA funksiyaları artıq avtomatik yüklənib! Script tag lazım deyil -->
 
 <style>
     .temp-display {
@@ -372,14 +355,13 @@ export function init() {
 
 **Və ya sadə olaraq (Binding ilə):**
 ```html
-<script src="/webui.0/data/scada-utils.js"></script>
-
 <div>
     <!-- Binding: {temperature} state-dən gələcək -->
     <span id="temp"></span>
 </div>
 
 <script>
+    // SCADA funksiyaları artıq global yüklənib
     // Temperature state dəyişəndə
     window.addEventListener('load', () => {
         // Binding-dən gələn dəyəri format edin
@@ -568,26 +550,23 @@ const formatted = scadaFormatValue(powerKw, {
 
 ### Problem: `scadaFormatValue is not defined`
 
-**Səbəb:** SCADA script yüklənməyib.
+**Səbəb:** SCADA script yüklənməyib və ya Additional Files-da fayllar yoxdur.
 
 **Həll:**
 
-1. **Script tag yoxlayın:**
-```html
-<!-- Screen HTML-də olmalıdır -->
-<script src="/webui.0/data/scada-utils.js"></script>
-```
+1. **Additional Files yoxlayın:**
+   - WebUI → Settings → Additional Files
+   - `scada-utils.js` görünməlidir
+   - Əgər yoxdursa: `npm run setup-scada` çalışdırın
 
-2. **Yolun düzgünlüyünü yoxlayın:**
-   - Browser console-da: `Network` tab
-   - `/webui.0/data/scada-utils.js` yüklənməlidir
-   - Əgər 404 error gəlirsə, fayl düzgün qovluqda deyil
+2. **Browser Network tab yoxlayın:**
+   - F12 → Network tab
+   - `/webui.0/data/scada-utils.js` yüklənir?
+   - 404 error varsa - fayl Additional Files-da deyil
 
-3. **Alternative yol:**
-```html
-<!-- Tam path -->
-<script src="http://localhost:8082/webui.0/data/scada-utils.js"></script>
-```
+3. **Browser cache təmizləyin:**
+   - Ctrl + Shift + R (hard refresh)
+   - Və ya Ctrl + F5
 
 4. **Yüklənməni yoxlayın:**
 ```javascript
@@ -596,21 +575,29 @@ console.log(typeof scadaFormatValue);
 // "function" olmalıdır
 ```
 
+**Qeyd:** Artıq manual `<script>` tag əlavə etməyə ehtiyac yoxdur! Script `runtime.html` və `index.html`-də global olaraq əlavə edilib.
+
 ### Problem: Funksiyalar Screen-də işləmir
 
-**Həll:** Script yüklənməsini gözləyin:
+**Həll:** Page yüklənməsini gözləyin:
 
 ```html
-<script src="/webui.0/data/scada-utils.js"></script>
-
 <script>
-    // Script yüklənməsini gözləyin
+    // Page yüklənməsini gözləyin
     window.addEventListener('load', function() {
-        // İndi SCADA funksiyalarını istifadə edə bilərsiniz
+        // SCADA funksiyaları artıq yüklənib
         console.log('SCADA ready!');
         console.log(scadaFormatValue(25, {suffix: ' °C'}));
     });
 </script>
+```
+
+Və ya `DOMContentLoaded` istifadə edin:
+```javascript
+document.addEventListener('DOMContentLoaded', function() {
+    // SCADA funksiyalarını istifadə edin
+    console.log(typeof scadaFormatValue); // "function"
+});
 ```
 
 ### Problem: Additional Files-da scada-utils.js yoxdur

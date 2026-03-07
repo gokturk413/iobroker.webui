@@ -23,23 +23,24 @@
       resolve: (id, parentUrl, resolve) => {
         if (!storedParentUrl)
           storedParentUrl = parentUrl;
-        if (parentUrl.startsWith('blob:'))
           parentUrl = storedParentUrl;
         return resolve(id, parentUrl)
       }
     }
   </script>
   <script src="./node_modules/es-module-shims/dist/es-module-shims.js"></script>
-  <script src="/webui.0.widgets/importmap.js"></script>
+  <script src="/webui.0/widgets/importmap.js"></script>
   <script src="./dist/importmaps/importmap-runtime.js"></script>
 
   <script src="config.js"></script>
+  
+  <!-- SCADA Utility Functions - Global for all screens -->
+  <script src="/webui.0/data/scada-utils.js" onerror="console.warn('SCADA utils not loaded - run setup-scada or check Additional Files')"></script>
 </head>
 
 <style>
   body {
     height: 100%;
-    margin: 0;
     font-family: 'Roboto', 'Noto', sans-serif;
     line-height: 1.5;
     background-color: white;
