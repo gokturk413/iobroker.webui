@@ -2,20 +2,22 @@
 
 Bu paket SCADA utility funksiyaları ilə gəlir. Bu funksiyalar WebUI-də global olaraq istifadə edilə bilər.
 
-## ✅ Avtomatik Quraşdırma (Təvsiyə Edilir)
+## ✅ Avtomatik - Heç Nə Etməyin!
 
-**Heç bir əməliyyat lazım deyil!** 
+**SCADA funksiyaları artıq adapter ilə birlikdə gəlir və avtomatik yüklənir!**
 
-Adapter install olunduqda (npm və ya GitHub-dan) SCADA funksiyaları avtomatik olaraq quraşdırılır:
+Adapter install olunduqda:
 
 ```bash
-# Adapter install zamanı avtomatik çalışır
-npm install iobroker.webui
-# və ya
 iobroker install gokturk413/iobroker.webui
 ```
 
-`postinstall` hook avtomatik olaraq SCADA funksiyalarını iobroker-data qovluğuna kopyalayır.
+SCADA funksiyaları avtomatik olaraq:
+- ✅ `www/default-additionalfiles/scada-utils.js` qovluğunda olur
+- ✅ `runtime.html` və `index.html`-də avtomatik yüklənir
+- ✅ Bütün screen-lərdə global olaraq mövcuddur
+
+**Heç bir manual setup lazım deyil!**
 
 ### Manual Quraşdırma (Lazım olduqda)
 

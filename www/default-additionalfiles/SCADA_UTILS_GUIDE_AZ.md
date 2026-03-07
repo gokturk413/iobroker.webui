@@ -2,17 +2,20 @@
 
 ## 🔧 Quraşdırma
 
-### Addım 1: Fayllar Artıq Additional Files-dadır
+### Addım 1: Fayllar Artıq Adapter-də Mövcuddur
 
-Adapter install olunduqda SCADA funksiyaları avtomatik olaraq Additional Files-a əlavə olunur.
+SCADA funksiyaları adapter-in `www/default-additionalfiles/` qovluğundadır və avtomatik olaraq serve olunur.
 
-Yoxlamaq üçün: **WebUI → Settings → Additional Files** → `scada-utils.js` görünməlidir.
+Fayl yolu: `/webui.0/default-additionalfiles/scada-utils.js`
 
 ### Addım 2: Avtomatik Yüklənir! ✅
 
 **SCADA funksiyaları artıq BÜTÜN screen-lər üçün avtomatik yüklənir!**
 
-`runtime.html` və `index.html` fayllarında SCADA script global olaraq əlavə edilib. 
+`runtime.html` və `index.html` fayllarında SCADA script global olaraq əlavə edilib:
+```html
+<script src="./default-additionalfiles/scada-utils.js"></script>
+```
 
 **Heç bir manual yükləmə lazım deyil!** Sadəcə istifadə edin.
 
@@ -550,19 +553,19 @@ const formatted = scadaFormatValue(powerKw, {
 
 ### Problem: `scadaFormatValue is not defined`
 
-**Səbəb:** SCADA script yüklənməyib və ya Additional Files-da fayllar yoxdur.
+**Səbəb:** SCADA script yüklənməyib.
 
 **Həll:**
 
-1. **Additional Files yoxlayın:**
-   - WebUI → Settings → Additional Files
-   - `scada-utils.js` görünməlidir
-   - Əgər yoxdursa: `npm run setup-scada` çalışdırın
-
-2. **Browser Network tab yoxlayın:**
+1. **Browser Network tab yoxlayın:**
    - F12 → Network tab
-   - `/webui.0/data/scada-utils.js` yüklənir?
-   - 404 error varsa - fayl Additional Files-da deyil
+   - `default-additionalfiles/scada-utils.js` yüklənir?
+   - Status: 200 OK olmalıdır
+   - 404 error varsa - adapter düzgün install olmayıb
+
+2. **Fayl yolunu yoxlayın:**
+   - `/webui.0/default-additionalfiles/scada-utils.js`
+   - Bu yol adapter-in `www/default-additionalfiles/` qovluğuna işarə edir
 
 3. **Browser cache təmizləyin:**
    - Ctrl + Shift + R (hard refresh)
@@ -575,7 +578,12 @@ console.log(typeof scadaFormatValue);
 // "function" olmalıdır
 ```
 
-**Qeyd:** Artıq manual `<script>` tag əlavə etməyə ehtiyac yoxdur! Script `runtime.html` və `index.html`-də global olaraq əlavə edilib.
+5. **Adapter yenidən install edin:**
+```bash
+iobroker install gokturk413/iobroker.webui
+```
+
+**Qeyd:** SCADA funksiyaları `runtime.html` və `index.html`-də avtomatik yüklənir. Manual əməliyyat lazım deyil!
 
 ### Problem: Funksiyalar Screen-də işləmir
 
@@ -600,22 +608,26 @@ document.addEventListener('DOMContentLoaded', function() {
 });
 ```
 
-### Problem: Additional Files-da scada-utils.js yoxdur
+### Problem: Fayl 404 Error Verir
+
+**Səbəb:** Adapter düzgün install olmayıb və ya build edilməyib.
 
 **Həll:**
 
-1. **Manual kopyalayın:**
+1. **Adapter qovluğunu yoxlayın:**
+   - `/opt/iobroker/node_modules/iobroker.webui/www/default-additionalfiles/scada-utils.js` mövcuddur?
+   - Windows: `C:\iobroker\node_modules\iobroker.webui\www\default-additionalfiles\scada-utils.js`
+
+2. **Adapter yenidən install edin:**
 ```bash
-npm run setup-scada
+iobroker stop webui
+iobroker install gokturk413/iobroker.webui
+iobroker start webui
 ```
 
-2. **Və ya manuel:**
-   - `node_modules/iobroker.webui/www/default-additionalfiles/scada-utils.js`
-   - Kopyalayın → `iobroker-data/files/webui.0.data/config/additionalfiles/`
-
-3. **WebUI Settings-də yoxlayın:**
-   - Settings → Additional Files
-   - scada-utils.js görünməlidir
+3. **Browser cache təmizləyin:**
+   - Ctrl + Shift + Delete
+   - Hard refresh: Ctrl + F5
 
 ---
 
