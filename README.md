@@ -74,6 +74,30 @@ For detailed setup instructions, see [LICENSE_SETUP_PUBLIC.md](./LICENSE_SETUP_P
 
 **Note:** This is a hardware-bound license. The adapter will only work on registered hardware. Contact **gokturk413** for licensing.
 
+### 🔧 SCADA Utility Functions (Auto-Installed)
+
+This adapter includes powerful SCADA utility functions for value formatting, unit conversions, and more.
+
+**Automatic Installation:** SCADA functions are automatically installed when you install this adapter via npm or GitHub. No manual setup required!
+
+The setup runs automatically during `npm install` (postinstall hook) and copies utility files to your ioBroker data directory.
+
+**Manual Setup (if needed):**
+```bash
+npm run setup-scada
+```
+
+For detailed usage instructions, see [SCADA_SETUP.md](./SCADA_SETUP.md)
+
+**Features:**
+- Value formatting with decimals, limits, scaling
+- Temperature, pressure, flow conversions  
+- Linear scaling for analog signals (4-20mA, 0-10V)
+- Alarm checking with color coding
+- Statistical functions (average, moving average)
+- Time formatting and deadband/hysteresis functions
+- Global access in all Custom Controls and Formulas
+
   
 ## Concepts
 

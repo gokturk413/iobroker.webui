@@ -162,6 +162,11 @@ function copyConfigJs() {
         .pipe(dest('./www'));
 }
 
+function copyDefaultAdditionalFiles() {
+    return src('./www/default-additionalfiles/**/*.*')
+        .pipe(dest('./www/default-additionalfiles'));
+}
+
 function saveGitCommitHash(done) {
     git.revParse({ args: '--short HEAD' }, (err, hash) => {
         if (err) throw err;
@@ -174,4 +179,4 @@ function saveGitCommitHash(done) {
 }
 
 //git rev-parse HEAD
-export default series(fixMonaco, copyNodeModules, copyNodeFiles, copyDist, cleanupNodeModules, cleanupDist, copyAssets, copyHtml, copyManifest, copyConfigJs, cleanupMonaco, saveGitCommitHash);
+export default series(fixMonaco, copyNodeModules, copyNodeFiles, copyDist, cleanupNodeModules, cleanupDist, copyAssets, copyHtml, copyManifest, copyConfigJs, copyDefaultAdditionalFiles, cleanupMonaco, saveGitCommitHash);

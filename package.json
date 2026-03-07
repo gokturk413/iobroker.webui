@@ -11,6 +11,7 @@
     "startwww": "cd www && web-dev-server --node-resolve --open",
     "prepublishOnly": "npm run build",
     "build": "npm i && npm run reflection && gulp delAll && tsc && gulp",
+    "postinstall": "node setup-scada-utils.js || echo 'SCADA setup will run on adapter start'",
     "test:ts": "mocha --config test/mocharc.custom.json test/tests/*.js",
     "test:package": "mocha test/package --exit",
     "test:unit": "mocha test/unit --exit",
@@ -27,7 +28,8 @@
     "obfuscate-all": "npm run obfuscate && npm run obfuscate-license",
     "build-license-validator": "node tools/obfuscate-license-simple.mjs",
     "license-generate": "node tools/license-generator.js",
-    "release": "release-script"
+    "release": "release-script",
+    "setup-scada": "node setup-scada-utils.js"
   },
   "repository": {
     "type": "git",
@@ -53,7 +55,9 @@
     "widgets/",
     "io-package.json",
     "LICENSE",
-    "README.md"
+    "README.md",
+    "SCADA_SETUP.md",
+    "setup-scada-utils.js"
   ],
   "engines": {
     "node": ">=18"

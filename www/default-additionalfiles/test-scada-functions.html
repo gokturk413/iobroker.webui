@@ -1,0 +1,287 @@
+<!DOCTYPE html>
+<html lang="az">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SCADA Functions Test</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            max-width: 800px;
+            margin: 50px auto;
+            padding: 20px;
+            background: #f5f5f5;
+        }
+        .container {
+            background: white;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        h1 {
+            color: #2c3e50;
+            border-bottom: 3px solid #3498db;
+            padding-bottom: 10px;
+        }
+        .test-group {
+            margin: 20px 0;
+            padding: 15px;
+            background: #ecf0f1;
+            border-radius: 5px;
+        }
+        .test-group h3 {
+            color: #34495e;
+            margin-top: 0;
+        }
+        .result {
+            background: #2c3e50;
+            color: #2ecc71;
+            padding: 10px;
+            border-radius: 5px;
+            font-family: 'Courier New', monospace;
+            margin: 5px 0;
+        }
+        .error {
+            color: #e74c3c;
+        }
+        .success {
+            color: #2ecc71;
+        }
+        button {
+            background: #3498db;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+            margin: 10px 5px 10px 0;
+        }
+        button:hover {
+            background: #2980b9;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🔧 SCADA Functions Test</h1>
+        
+        <div class="test-group">
+            <h3>Status Yoxlanışı</h3>
+            <button onclick="checkStatus()">Funksiyaları Yoxla</button>
+            <div id="status-result"></div>
+        </div>
+
+        <div class="test-group">
+            <h3>1. Value Formatting</h3>
+            <button onclick="testFormatting()">Test Et</button>
+            <div id="format-result"></div>
+        </div>
+
+        <div class="test-group">
+            <h3>2. Temperature Conversion</h3>
+            <button onclick="testTemperature()">Test Et</button>
+            <div id="temp-result"></div>
+        </div>
+
+        <div class="test-group">
+            <h3>3. Pressure Conversion</h3>
+            <button onclick="testPressure()">Test Et</button>
+            <div id="pressure-result"></div>
+        </div>
+
+        <div class="test-group">
+            <h3>4. Linear Scaling</h3>
+            <button onclick="testScaling()">Test Et</button>
+            <div id="scaling-result"></div>
+        </div>
+
+        <div class="test-group">
+            <h3>5. Alarm System</h3>
+            <button onclick="testAlarm()">Test Et</button>
+            <div id="alarm-result"></div>
+        </div>
+
+        <div class="test-group">
+            <h3>6. Statistics</h3>
+            <button onclick="testStatistics()">Test Et</button>
+            <div id="stats-result"></div>
+        </div>
+
+        <button onclick="runAllTests()" style="background: #27ae60; font-weight: bold;">
+            🚀 Bütün Testləri Çalışdır
+        </button>
+    </div>
+
+    <script src="scada-utils.js"></script>
+    <script>
+        function checkStatus() {
+            const funcs = [
+                'scadaFormatValue',
+                'scadaTempConvert',
+                'scadaPressureConvert',
+                'scadaLinearScale',
+                'scadaCheckAlarm',
+                'scadaAverage'
+            ];
+
+            let html = '';
+            let allOk = true;
+
+            funcs.forEach(func => {
+                const exists = typeof window[func] !== 'undefined';
+                allOk = allOk && exists;
+                html += `<div class="result ${exists ? 'success' : 'error'}">
+                    ${exists ? '✅' : '❌'} ${func}: ${exists ? 'Mövcuddur' : 'Tapılmadı'}
+                </div>`;
+            });
+
+            html = `<div class="result ${allOk ? 'success' : 'error'}">
+                ${allOk ? '✅ Bütün funksiyalar yüklənib!' : '❌ Bəzi funksiyalar əksikdir'}
+            </div>` + html;
+
+            document.getElementById('status-result').innerHTML = html;
+        }
+
+        function testFormatting() {
+            const tests = [
+                {
+                    input: 23.456,
+                    options: { decimals: 1, suffix: ' °C' },
+                    expected: '23.5 °C'
+                },
+                {
+                    input: 1234567.89,
+                    options: { decimals: 2, prefix: '$', thousandSep: ',' },
+                    expected: '$1,234,567.89'
+                },
+                {
+                    input: 125,
+                    options: { maxLimit: 100, suffix: '%' },
+                    expected: '100.00%'
+                }
+            ];
+
+            let html = '';
+            tests.forEach((test, i) => {
+                const result = scadaFormatValue(test.input, test.options);
+                const success = result === test.expected;
+                html += `<div class="result ${success ? 'success' : 'error'}">
+                    Test ${i + 1}: ${result} ${success ? '✅' : `❌ (gözlənilən: ${test.expected})`}
+                </div>`;
+            });
+
+            document.getElementById('format-result').innerHTML = html;
+        }
+
+        function testTemperature() {
+            const tests = [
+                { func: 'celsiusToFahrenheit', input: 25, expected: 77 },
+                { func: 'fahrenheitToCelsius', input: 77, expected: 25 },
+                { func: 'celsiusToKelvin', input: 25, expected: 298.15 }
+            ];
+
+            let html = '';
+            tests.forEach((test, i) => {
+                const result = scadaTempConvert[test.func](test.input);
+                const success = Math.abs(result - test.expected) < 0.01;
+                html += `<div class="result ${success ? 'success' : 'error'}">
+                    ${test.func}(${test.input}): ${result.toFixed(2)} ${success ? '✅' : '❌'}
+                </div>`;
+            });
+
+            document.getElementById('temp-result').innerHTML = html;
+        }
+
+        function testPressure() {
+            const tests = [
+                { func: 'paToBar', input: 100000, expected: 1 },
+                { func: 'barToPa', input: 1, expected: 100000 },
+                { func: 'barToPsi', input: 1, expected: 14.5038 }
+            ];
+
+            let html = '';
+            tests.forEach((test, i) => {
+                const result = scadaPressureConvert[test.func](test.input);
+                const success = Math.abs(result - test.expected) < 0.01;
+                html += `<div class="result ${success ? 'success' : 'error'}">
+                    ${test.func}(${test.input}): ${result.toFixed(4)} ${success ? '✅' : '❌'}
+                </div>`;
+            });
+
+            document.getElementById('pressure-result').innerHTML = html;
+        }
+
+        function testScaling() {
+            const tests = [
+                { input: 12, inMin: 4, inMax: 20, outMin: 0, outMax: 100, expected: 50 },
+                { input: 5, inMin: 0, inMax: 10, outMin: 0, outMax: 1000, expected: 500 }
+            ];
+
+            let html = '';
+            tests.forEach((test, i) => {
+                const result = scadaLinearScale(test.input, test.inMin, test.inMax, test.outMin, test.outMax);
+                const success = Math.abs(result - test.expected) < 0.01;
+                html += `<div class="result ${success ? 'success' : 'error'}">
+                    Test ${i + 1}: ${result.toFixed(2)} ${success ? '✅' : '❌'}
+                </div>`;
+            });
+
+            document.getElementById('scaling-result').innerHTML = html;
+        }
+
+        function testAlarm() {
+            const limits = { hihi: 90, hi: 80, lo: 20, lolo: 10 };
+            const tests = [
+                { value: 95, expected: 'hihi' },
+                { value: 85, expected: 'hi' },
+                { value: 50, expected: 'normal' },
+                { value: 15, expected: 'lo' },
+                { value: 5, expected: 'lolo' }
+            ];
+
+            let html = '';
+            tests.forEach((test, i) => {
+                const state = scadaCheckAlarm(test.value, limits);
+                const color = scadaAlarmColor(state);
+                const success = state === test.expected;
+                html += `<div class="result ${success ? 'success' : 'error'}">
+                    Value ${test.value}: ${state} <span style="color: ${color}">●</span> ${success ? '✅' : '❌'}
+                </div>`;
+            });
+
+            document.getElementById('alarm-result').innerHTML = html;
+        }
+
+        function testStatistics() {
+            const values = [10, 20, 30, 40, 50];
+            const avg = scadaAverage(values);
+            const stats = scadaStats(values);
+            const movingAvg = scadaMovingAverage([10, 15, 20, 25, 30, 35, 40], 5);
+
+            let html = `
+                <div class="result success">Average: ${avg} ✅</div>
+                <div class="result success">Min: ${stats.min}, Max: ${stats.max}, Avg: ${stats.avg} ✅</div>
+                <div class="result success">Moving Average (last 5): ${movingAvg.toFixed(2)} ✅</div>
+            `;
+
+            document.getElementById('stats-result').innerHTML = html;
+        }
+
+        function runAllTests() {
+            checkStatus();
+            testFormatting();
+            testTemperature();
+            testPressure();
+            testScaling();
+            testAlarm();
+            testStatistics();
+        }
+
+        // Auto-run on load
+        window.addEventListener('load', () => {
+            checkStatus();
+        });
+    </script>
+</body>
+</html>
