@@ -24,8 +24,10 @@ export class IobrokerHandler {
     changeView = new TypedEvent();
     refreshView = new TypedEvent();
     _readyPromises = [];
-    language;
+    language = 'en';
     languageChanged = new TypedEvent();
+    translations = {};
+    translationsChanged = new TypedEvent();
     #cache = new Map();
     _controlNames = null;
     clientId;
@@ -105,6 +107,19 @@ export class IobrokerHandler {
             if (this.globalScriptInstance.init)
                 this.globalScriptInstance.init();
         }
+        const savedLang = localStorage.getItem('webui-language');
+        if (savedLang) {
+            this.language = savedLang;
+        } else {
+            try {
+                const sysCfg = await this.connection.getSystemConfig();
+                if (sysCfg?.common?.language) {
+                    this.language = sysCfg.common.language;
+                }
+            } catch (e) { /* default 'en' */ }
+        }
+        await this.loadTranslations();
+        window.t = (key) => this.t(key);
         for (let p of this._readyPromises)
             p();
         this._readyPromises = null;
@@ -457,6 +472,48 @@ export class IobrokerHandler {
                 this.globalScriptInstance.init();
         }
         this.configChanged.emit();
+    }
+    async loadTranslations() {
+        try {
+            this.translations = await this._getObjectFromFile(this.configPath + 'translations.json');
+        } catch (e) {
+            this.translations = {};
+        }
+    }
+    async saveTranslations() {
+        await this._saveObjectToFile(this.translations, this.configPath + 'translations.json');
+        this.translationsChanged.emit(this.translations);
+    }
+    setLanguage(lang) {
+        this.language = lang;
+        localStorage.setItem('webui-language', lang);
+        this.languageChanged.emit(lang);
+        window.dispatchEvent(new CustomEvent('languageChanged', { detail: lang }));
+    }
+    /** Translation helper - hər yerdən istifadə üçün
+     *  iobrokerHandler.t('pid.op')
+     *  iobrokerHandler.t('valve.open')
+     */
+    t(key) {
+        const lang = this.language || 'en';
+        const parts = key.split('.');
+        const resolve = (langCode) => {
+            let val = this.translations?.[langCode];
+            for (const p of parts) {
+                val = val?.[p];
+                if (val === undefined) return undefined;
+            }
+            return typeof val === 'string' ? val : undefined;
+        };
+        return resolve(lang)
+            ?? (lang !== 'en' ? resolve('en') : undefined)
+            ?? (() => {
+                for (const l of Object.keys(this.translations ?? {})) {
+                    const v = resolve(l);
+                    if (v !== undefined) return v;
+                }
+                return key;
+            })();
     }
     async _getObjectFromFile(name) {
         const file = await this.connection.readFile(this.namespaceFiles, name, false);

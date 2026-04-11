@@ -29,6 +29,7 @@ import { getPanelContainerForElement } from './DockHelper.js';
 import { IobrokerWebuiPropertyGrid } from './IobrokerWebuiPropertyGrid.js';
 import { typeInfoFromJsonSchema } from '@node-projects/propertygrid.webcomponent';
 import { openSelectIdDialog } from "@iobroker/webcomponent-selectid-dialog/dist/selectIdHelper.js";
+import "./IobrokerWebuiTranslationEditor.js";
 export class IobrokerWebuiAppShell extends BaseCustomWebComponentConstructorAppend {
     activeElement;
     mainPage = 'designer';
@@ -103,6 +104,10 @@ export class IobrokerWebuiAppShell extends BaseCustomWebComponentConstructorAppe
 
           <div id="visibilityDock" title="Visibility" style="overflow: auto; width: 100%;" dock-spawn-dock-to="attributeDock">
           </div>
+
+          <div id="translationDock" title="Translations" style="overflow: hidden; width: 100%; height: 100%;" dock-spawn-dock-to="attributeDock">
+            <iobroker-webui-translation-editor id="translationEditor"></iobroker-webui-translation-editor>
+          </div>
           
           <div id="eventsDock" title="Events" dock-spawn-dock-type="down" dock-spawn-dock-ratio="0.4" dock-spawn-dock-to="attributeDock">
             <iobroker-webui-event-assignment id="eventsList"></iobroker-webui-event-assignment>
@@ -141,6 +146,7 @@ export class IobrokerWebuiAppShell extends BaseCustomWebComponentConstructorAppe
         this.controlpropertiesEditor = this._getDomElement('propertiesEditor');
         this.eventsAssignment = this._getDomElement('eventsList');
         this.refactorView = this._getDomElement('refactorView');
+        this.translationEditor = this._getDomElement('translationEditor');
         this.settingsEditor = this._getDomElement('settingsEditor');
         this.settingsEditor.getTypeInfo = (obj, type) => typeInfoFromJsonSchema(propertiesTypeInfo, obj, type);
         this.settingsEditor.propertyChanged.on((prp) => {
